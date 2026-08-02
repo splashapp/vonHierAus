@@ -744,6 +744,13 @@ img {
   background: var(--gradient-hero);
 }
 
+/* Bei Ländern mit zusätzlicher LocalTimeSystemTile (siehe FactGrid) darf die Hauptstadt-Kachel
+   über zwei Grid-Zeilen wachsen, damit sie neben den dadurch entstehenden zusätzlichen
+   schmalen Kacheln nicht unproportional klein wirkt. */
+.fact-tile-capital--large {
+  grid-row: span 2;
+}
+
 .fact-tile-capital-photo {
   position: absolute;
   inset: 0;
@@ -774,6 +781,12 @@ img {
   color: #fff;
   font-size: 1.25rem;
   font-family: var(--font-heading);
+}
+
+.fact-tile-capital-population {
+  margin-top: 2px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.8rem;
 }
 
 /* ---------- Clock tile ---------- */
@@ -826,6 +839,99 @@ img {
   color: var(--color-accent);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+}
+
+/* ---------- Local time system tile (z.B. äthiopische Zeitrechnung) ---------- */
+
+.fact-tile-localtime {
+  text-align: left;
+  container-type: inline-size;
+  grid-column: span 4;
+}
+
+.localtime-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.localtime-col {
+  min-width: 0;
+}
+
+.localtime-col--calendar {
+  padding-left: var(--space-4);
+  border-left: 1px solid var(--color-border);
+}
+
+@container (max-width: 420px) {
+  .localtime-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .localtime-col--calendar {
+    padding-left: 0;
+    padding-top: var(--space-3);
+    margin-top: var(--space-3);
+    border-left: none;
+    border-top: 1px solid var(--color-border);
+  }
+}
+
+.localtime-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.localtime-time {
+  flex-shrink: 0;
+  font-weight: 600;
+  color: var(--color-primary);
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(0.8rem, 5.5cqi, 1.05rem);
+}
+
+.localtime-label {
+  flex: 1;
+  min-width: 0;
+  text-align: right;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--color-text-muted);
+  font-size: 0.62rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.localtime-note {
+  margin-top: 1px;
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+}
+
+.localtime-calendar-headline {
+  flex-shrink: 0;
+  font-weight: 600;
+  color: var(--color-accent);
+  font-size: 0.82rem;
+}
+
+.localtime-calendar-desc {
+  margin-top: 1px;
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+}
+
+.localtime-travel-tip {
+  margin: var(--space-1) 0 0;
+  padding-top: var(--space-1);
+  border-top: 1px solid var(--color-border);
+  font-size: 0.66rem;
+  font-style: italic;
+  color: var(--color-text-muted);
 }
 
 /* ---------- Weather tile ---------- */
@@ -911,6 +1017,10 @@ img {
   background: var(--color-bg);
 }
 
+.currency-input--local {
+  width: 5.2rem;
+}
+
 /* Native Spinner-Pfeile ausblenden — die knappe Kastenbreite hat dafür keinen Platz */
 .currency-input::-webkit-outer-spin-button,
 .currency-input::-webkit-inner-spin-button {
@@ -926,12 +1036,6 @@ img {
 .currency-unit,
 .currency-equals {
   color: var(--color-text-muted);
-}
-
-.currency-result {
-  font-weight: 600;
-  color: var(--color-primary);
-  font-size: clamp(0.85rem, 7cqi, 1rem);
 }
 
 /* ---------- Phrasebook tile ---------- */

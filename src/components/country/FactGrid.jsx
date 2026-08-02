@@ -1,6 +1,7 @@
 import CapitalTile from './CapitalTile.jsx';
 import ClockTile from './ClockTile.jsx';
 import WeatherTile from './WeatherTile.jsx';
+import LocalTimeSystemTile from './LocalTimeSystemTile.jsx';
 import CurrencyConverter from './CurrencyConverter.jsx';
 import PhrasebookTile from './PhrasebookTile.jsx';
 
@@ -9,13 +10,19 @@ export default function FactGrid({ facts, phrasebook }) {
 
   return (
     <div className="fact-grid">
-      <CapitalTile capital={facts.capital} capitalImage={facts.capitalImage} />
+      <CapitalTile
+        capital={facts.capital}
+        capitalImage={facts.capitalImage}
+        capitalPopulation={facts.capitalPopulation}
+        large={Boolean(facts.localTimeSystem)}
+      />
       <ClockTile
         capital={facts.capital}
         capitalTimezone={facts.timezone}
         capitalCoords={facts.capitalCoords}
       />
       <WeatherTile capital={facts.capital} capitalCoords={facts.capitalCoords} />
+      <LocalTimeSystemTile localTimeSystem={facts.localTimeSystem} capitalTimezone={facts.timezone} />
 
       {(facts.population || facts.area) && (
         <div className="fact-tile">

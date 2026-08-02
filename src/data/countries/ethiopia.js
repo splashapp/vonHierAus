@@ -59,6 +59,7 @@ const ethiopia = {
       alt: 'Skyline von Addis Abeba',
       credit: 'Simfan34, Wikimedia Commons',
     },
+    capitalPopulation: '≈3,9 Mio.',
     population: '≈135,5 Mio.',
     government: 'Föderale parlamentarische Republik',
     officialLanguages: ['Amharisch'],
@@ -70,6 +71,23 @@ const ethiopia = {
     timezone: 'Africa/Addis_Ababa',
     capitalCoords: { lat: 9.03583, lon: 38.7525 },
     neighbors: ['Eritrea', 'Dschibuti', 'Somalia', 'Kenia', 'Südsudan', 'Sudan'],
+    // Äthiopische Zeitrechnung: der Tag beginnt traditionell bei Sonnenaufgang (≈ 6 Uhr
+    // international) statt um Mitternacht — ein eigener 12-Stunden-Zyklus, verschoben um
+    // offsetHours gegenüber der internationalen Uhrzeit. ClockTile zeigt das als dritten,
+    // optionalen Block neben Hamburg/Addis Abeba (international).
+    localTimeSystem: {
+      label: 'Äthiopische Lokalzeit',
+      offsetHours: 6,
+      note: 'Die Uhr startet täglich neu bei 6:00 (≈ Sonnenaufgang) und 18:00 (≈ Sonnenuntergang) – jeweils von 1 bis 12.',
+      calendar: {
+        label: 'Äthiopischer Kalender',
+        headline: '13 Monate',
+        description:
+          '12 × 30 Tage + ein 13. Kurzmonat (Pagumē, 5–6 Tage).',
+      },
+      travelTip:
+        'Reisehinweis: Am Flughafen und bei Buchungen gilt immer die internationale Zeit. Taxi, Markt oder lokale Termine können in äthiopischer Zeit angegeben sein — am besten kurz nachfragen: „Ethiopian time or international time?"',
+    },
   },
 
   // Amharisch ist sowohl Amts-/Arbeitssprache des Bundes als auch die tatsächliche
@@ -112,6 +130,7 @@ const ethiopia = {
     { year: '2022', event: 'Das Abkommen von Pretoria beendet den zweijährigen Tigray-Krieg zwischen Bundesregierung und TPLF.' },
     { year: '2020', event: 'Ausbruch des Tigray-Konflikts, nachdem Premier Abiy Ahmed – ein Jahr zuvor Friedensnobelpreisträger – Truppen gegen die TPLF entsendet.' },
     { year: '1995', event: 'Neue Verfassung: Äthiopien wird als ethnisch-föderaler Bundesstaat neu konstituiert.' },
+    { year: '1993', event: 'Unabhängigkeit Eritreas nach Referendum – Ende einer gemeinsamen Geschichte seit 1952. Seitdem getrennte Staaten mit gemeinsamer Küche: Injera, Berbere und Wat sind in beiden Ländern Grundlage der Alltagsküche.' },
     { year: '1991', event: 'Die EPRDF stürzt das kommunistische Derg-Regime; Diktator Mengistu Haile Mariam flieht ins Exil.' },
     { year: '1974', event: 'Die Militärjunta „Derg" stürzt Kaiser Haile Selassie I. und beendet die jahrhundertealte Monarchie.' },
     { year: '1896', event: 'Schlacht von Adwa: Äthiopien besiegt die italienische Invasionsarmee und bewahrt als einziges afrikanisches Land seine Unabhängigkeit während der Kolonialzeit.' },
@@ -152,6 +171,11 @@ const ethiopia = {
       },
     },
   ],
+
+  // Überschreibt den generischen Gerichte-Teaser aus CountryPage.jsx — hier bewusst mit einem
+  // ehrlichen Hinweis zur äthiopisch-eritreischen Küchen-Überschneidung ergänzt (siehe unten).
+  dishesTeaser:
+    'Die kulinarischen Highlights des Landes – zum Nachkochen. Äthiopisch und eritreisch werden in Restaurants und Rezepten oft zusammen geführt – die Küchen überschneiden sich stark (Injera, Berbere-Gewürze), weil Eritrea bis 1993 Teil Äthiopiens war. Ein ehrlicher Hinweis: Wer „äthiopisch essen" sucht, landet deshalb oft bei eritreischen Betreiber:innen.',
 
   dishes: [
     {
@@ -557,6 +581,35 @@ const ethiopia = {
       ],
       correctIndex: 0,
       explanation: 'Die Danakil-Senke liegt weit unter dem Meeresspiegel und zählt zu den lebensfeindlichsten, zugleich spektakulärsten Landschaften der Erde.',
+    },
+    {
+      question: 'Wann beginnt der Tag nach der traditionellen äthiopischen Lokalzeit?',
+      options: [
+        'Bei Sonnenaufgang, ≈ 6 Uhr international',
+        'Um Mitternacht, wie im internationalen 24h-Format',
+        'Bei Sonnenuntergang, ≈ 18 Uhr international',
+        'Um 12 Uhr mittags international',
+      ],
+      correctIndex: 0,
+      explanation: 'Die äthiopische Uhr startet täglich neu bei 6:00 (≈ Sonnenaufgang) und 18:00 (≈ Sonnenuntergang) – jeweils von 1 bis 12, statt wie international um Mitternacht.',
+    },
+    {
+      question: 'Um wie viele Stunden ist die äthiopische Lokalzeit gegenüber der internationalen Uhrzeit verschoben?',
+      options: ['6 Stunden', '3 Stunden', '9 Stunden', '12 Stunden'],
+      correctIndex: 0,
+      explanation: 'Die Verschiebung beträgt 6 Stunden – ein eigener 12-Stunden-Zyklus statt des internationalen 24h-Formats.',
+    },
+    {
+      question: 'Wie viele Monate hat der äthiopische Kalender?',
+      options: ['13', '12', '10', '14'],
+      correctIndex: 0,
+      explanation: '12 Monate zu je 30 Tagen plus ein 13. Kurzmonat namens Pagumē mit 5–6 Tagen.',
+    },
+    {
+      question: 'Wie heißt der kurze 13. Monat des äthiopischen Kalenders?',
+      options: ['Pagumē', 'Meskerem', 'Timkat', 'Enkutatash'],
+      correctIndex: 0,
+      explanation: 'Pagumē dauert nur 5 Tage (6 in Schaltjahren) und gleicht das Sonnenjahr aus.',
     },
   ],
 

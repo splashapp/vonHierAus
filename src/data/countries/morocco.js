@@ -60,6 +60,7 @@ const morocco = {
       alt: 'Kasbah des Oudayas in Rabat',
       credit: 'Steven Lek, Wikimedia Commons',
     },
+    capitalPopulation: '≈516.000',
     population: '≈36,8 Mio.',
     government: 'Parlamentarische Verfassungsmonarchie',
     officialLanguages: ['Arabisch', 'Tamazight (Berberisch)'],

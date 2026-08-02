@@ -1,16 +1,30 @@
 import { useState } from 'react';
 
+function roundTo(num, decimals) {
+  const factor = 10 ** decimals;
+  return Math.round(num * factor) / factor;
+}
+
 export default function CurrencyConverter({ currencyCode, currencyName, eurExchangeRate }) {
-  const [amount, setAmount] = useState(1);
+  const [eurValue, setEurValue] = useState('1');
+  const [localValue, setLocalValue] = useState(() =>
+    eurExchangeRate ? String(roundTo(1 * eurExchangeRate, 2)) : '',
+  );
 
   if (!eurExchangeRate) return null;
 
-  const numericAmount = Number.isFinite(amount) ? amount : 0;
-  const converted = numericAmount * eurExchangeRate;
-
-  function handleChange(e) {
+  function handleEurChange(e) {
     const value = e.target.value;
-    setAmount(value === '' ? '' : parseFloat(value));
+    setEurValue(value);
+    const num = parseFloat(value);
+    setLocalValue(Number.isFinite(num) ? String(roundTo(num * eurExchangeRate, 2)) : '');
+  }
+
+  function handleLocalChange(e) {
+    const value = e.target.value;
+    setLocalValue(value);
+    const num = parseFloat(value);
+    setEurValue(Number.isFinite(num) ? String(roundTo(num / eurExchangeRate, 2)) : '');
   }
 
   return (
@@ -22,16 +36,23 @@ export default function CurrencyConverter({ currencyCode, currencyName, eurExcha
           className="currency-input"
           type="number"
           min="0"
-          step="1"
-          value={amount}
-          onChange={handleChange}
+          step="any"
+          value={eurValue}
+          onChange={handleEurChange}
           aria-label="Betrag in Euro"
         />
         <span className="currency-unit">€</span>
         <span className="currency-equals">=</span>
-        <span className="currency-result">
-          {converted.toLocaleString('de-DE', { maximumFractionDigits: 2 })} {currencyCode}
-        </span>
+        <input
+          className="currency-input currency-input--local"
+          type="number"
+          min="0"
+          step="any"
+          value={localValue}
+          onChange={handleLocalChange}
+          aria-label={`Betrag in ${currencyCode}`}
+        />
+        <span className="currency-unit">{currencyCode}</span>
       </div>
     </div>
   );

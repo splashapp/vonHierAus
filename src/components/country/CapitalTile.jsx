@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 
-export default function CapitalTile({ capital, capitalImage }) {
+export default function CapitalTile({ capital, capitalImage, capitalPopulation, large }) {
   const prefersReducedMotion = useReducedMotion();
   const [failed, setFailed] = useState(false);
 
   return (
-    <div className="fact-tile fact-tile-capital">
+    <div className={`fact-tile fact-tile-capital${large ? ' fact-tile-capital--large' : ''}`}>
       {capitalImage?.src && !failed && (
         <motion.img
           className="fact-tile-capital-photo"
@@ -29,6 +29,9 @@ export default function CapitalTile({ capital, capitalImage }) {
       <div className="fact-tile-capital-content">
         <div className="fact-tile-label">Hauptstadt</div>
         <div className="fact-tile-value">{capital}</div>
+        {capitalPopulation && (
+          <div className="fact-tile-capital-population">{capitalPopulation} Einwohner:innen</div>
+        )}
       </div>
     </div>
   );

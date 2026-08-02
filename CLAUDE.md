@@ -155,13 +155,14 @@ Bei einem neuen bewegten Bild-Bereich dieses Muster wiederholen, nicht weglassen
 | `flagImage`, `heroImage` | `{src, alt, credit}` | Immer dieses dreiteilige Bild-Schema |
 | `heroSlides[]` (optional) | `{src, alt, credit, effect?: 'clouds' \| 'stars'}` | Rotierende Hero-Diashow statt `heroImage`; `effect` nur bei Himmel-Motiven sinnvoll |
 | `theme` | `{primary, secondary, accent, surface, fontHeading?, fontBody?, googleFontUrl?}` | Landestypische Optik — siehe eigener Abschnitt unten |
-| `facts` | `{capital, capitalImage, population, government, officialLanguages[], currencyCode, currencyName, eurExchangeRate, area, areaComparison, timezone, capitalCoords, neighbors[]}` | Kernfakten, siehe Hinweise unten |
+| `facts` | `{capital, capitalImage, capitalPopulation, population, government, officialLanguages[], currencyCode, currencyName, eurExchangeRate, area, areaComparison, timezone, capitalCoords, neighbors[], localTimeSystem?}` | Kernfakten, siehe Hinweise unten |
 | `phrasebook` | `{languageName, sourceNote, categories: [{title, phrases: [{de, local, phonetic, note?}]}]}` | Mini-Sprachführer, siehe Hinweise unten |
 | `history[]` | `{year, event}` — 5-8 Einträge, umgekehrt chronologisch (neuestes zuerst) | Historische Eckdaten, steht neben `facts.neighbors` (beide span 3) |
 | `map` | `{center: {lat, lon}, zoom, cities: [{name, lat, lon, capital?}]}` | Siehe Kartenkonvention |
 | `videos[]` | `{title, url, type}` | Dokumentationen/Reisevideos |
 | `movies[]` | `{title, year, note, url, image}` | Filme mit Landesbezug; `image` zeigt echten Drehort/Schauplatz (keine Filmposter — urheberrechtlich nicht frei) |
 | `dishes[]` | `{id, name, shortDesc, image, recipe: {ingredients[], steps[], image}}` | Gerichte + Rezepte |
+| `dishesTeaser` (optional) | string | Überschreibt den generischen Gerichte-Section-Teaser aus `CountryPage.jsx` — nur bei einem landestypischen, ehrlichen Hinweis nutzen (Beispiel: Äthiopien weist auf die Überschneidung mit der eritreischen Küche hin) |
 | `restaurantsHamburg[]` | `{name, address, url, image, visitNote?, menuHighlights?: [{name, price, desc}]}` | Landestypische Hamburg-Restaurants; Foto öffnet per Klick `url` (siehe "Bild-Interaktions-Konvention"). `menuHighlights` optional, in verschachteltem `Collapsible`, standardmäßig unter "Speisekarte anzeigen" — ist zusätzlich `visitNote` gesetzt (ein persönlicher "Am x probiert"-Vermerk), wird dessen Text stattdessen als Toggle-Beschriftung verwendet. Findet sich recherchiert **kein** echtes Restaurant, Array leer lassen — `RestaurantList` zeigt dann automatisch einen ehrlichen Hinweistext statt eines leeren Rasters oder eines erfundenen Eintrags |
 | `destinations[]` | `{name, desc, image}` | Reiseziele im Land — auch abseits klassischer Sightseeing-Ziele: z. B. eine für Reisende zugängliche Sport-/Freizeitaktivität oder ein Museum passen gut dazu |
 | `flights` | `{fromCity, routes: [{airline, via, durationApprox, bookingNote, url}]}` | Anreise ab Hamburg; `url` verlinkt die offizielle Airline-Seite |
@@ -169,12 +170,16 @@ Bei einem neuen bewegten Bild-Bereich dieses Muster wiederholen, nicht weglassen
 | `playlists[]` | `{title, spotifyUrl, embedUrl}` — **genau 3** | Musik |
 | `eventsHamburg[]` / `eventsCountry[]` | `{name, when, location, desc, url?}` | Echte, wiederkehrende Veranstaltungen mit Landesbezug — in Hamburg bzw. im Land selbst, siehe Hinweise unten |
 | `communitiesHamburg[]` | `{name, city, desc, eventsNote?, email?, phone?, url?}` | Vereine/Communities mit Wurzeln im Land, aktiv in Hamburg — siehe Hinweise unten |
-| `quiz[]` | `{question, options[], correctIndex, explanation}` | Nur Multiple Choice, keine Texteingabe |
+| `quiz[]` | `{question, options[], correctIndex, explanation}` | Nur Multiple Choice, keine Texteingabe. Der Pool darf auch mehr als 8 Fragen enthalten — `Quiz` wählt daraus pro Seitenaufruf zufällig 8 aus (siehe unten) |
 | `voices[]` (optional) | `{role: 'traveler'\|'local'\|'hamburg', text, name?, place?}` | Redaktionell kuratierte Besucher-Stimmen für `VoicesTile` — siehe Hinweise unten. Array darf leer sein/fehlen |
 
 Hinweise zu den besonderen `facts`-Feldern:
 - `capitalImage` treibt den bewegten Foto-Hintergrund der Hauptstadt-Kachel (`CapitalTile`) —
   gleiches Ken-Burns-Prinzip wie Hero-Bild und Landing-Karte.
+- `capitalPopulation` ist die Einwohnerzahl der Hauptstadt selbst (Stadtgebiet, nicht
+  Agglomeration/Metropolregion — bei der Recherche auf diese Unterscheidung achten, die Werte
+  können stark auseinanderliegen), im selben Format wie `population` (`'≈516.000'`/`'≈1,3 Mio.'`,
+  ohne Quellenklammer im Text). Wird klein unter dem Stadtnamen in `CapitalTile` angezeigt.
 - `timezone` ist die **IANA-Zeitzone der Hauptstadt** (z. B. `'Africa/Dakar'`), keine
   UTC-Kurzform — sie treibt die Live-Uhr (`ClockTile`). Hamburg selbst ist dort als feste
   Konstante (`src/utils/constants.js`) hinterlegt, nicht als Datenfeld.
@@ -190,6 +195,19 @@ Hinweise zu den besonderen `facts`-Feldern:
 - `capitalCoords` (`{lat, lon}` in Dezimalgrad) treibt sowohl die Sonnenauf-/-untergangszeiten in
   `ClockTile` (clientseitig über `src/utils/sunTimes.js`, keine externe API) als auch das
   aktuelle Wetter in `WeatherTile` (siehe unten).
+- `localTimeSystem` (optional, `{label, offsetHours, note?, travelTip?, calendar?}`) — nur für
+  Länder mit einer traditionellen, vom internationalen 24h-Format abweichenden Tageszählung
+  befüllen (Beispiel: die äthiopische Zeitrechnung beginnt den Tag bei Sonnenaufgang ≈ 6 Uhr
+  statt um Mitternacht, ein eigener 12h-Zyklus). Treibt die eigene, separate
+  `LocalTimeSystemTile` (siehe Komponenten-Referenz) — **nicht** `ClockTile`, der bleibt für
+  jedes Land bewusst einfach (nur Hamburg + Hauptstadt in internationaler Zeit), damit
+  `localTimeSystem` sich optisch klar als eigener, zusätzlicher Fakt abhebt statt einen der
+  Kernkästen zu verändern. `offsetHours` ist die Verschiebung gegenüber der internationalen
+  Uhrzeit der Hauptstadt (`facts.timezone`). `calendar` (optional,
+  `{label, headline, description}`) ergänzt einen eigenen Kalender-Hinweis daneben, falls das
+  Land zusätzlich einen vom gregorianischen Kalender abweichenden Kalender verwendet (Beispiel:
+  der äthiopische Kalender mit 13 Monaten und einem Versatz von 7–8 Jahren). Für die meisten
+  Länder bleibt `localTimeSystem` einfach weg, kein Pflichtfeld.
 
 `WeatherTile` ist die einzige Komponente mit einer echten externen Netzwerkabhängigkeit: sie holt
 Temperatur/Niederschlag/Luftfeuchtigkeit/Wetterlage für Hamburg und die Hauptstadt live von der
@@ -289,10 +307,11 @@ Fakten, kein optionales Polishing.
 | `MosaicHero` (`landing/`) | Vollflächiger Startseiten-Header: 500 prozedural generierte Farb-/Muster-Kacheln (kein Foto, keine Recherche nötig) hinter Eyebrow/H1/Lede/CTA-Link zu `/morocco`; eigenes Fraunces/Inter-Fontpaar per `GoogleFontLoader`, respektiert `prefers-reduced-motion` (Kachel-Einblendung entfällt dann) |
 | `CountryGrid` / `CountryCard` (`landing/`) | Kachel-Raster der Startseite, aktive Karten mit bewegtem Foto + eigenem Theme |
 | `CountryHero` / `FactGrid` | Immer sichtbarer "Broschüren-Umschlag", NICHT in `Section` gewrappt. `CountryHero` rotiert `heroSlides` mit Punkt-Navigation, Ken-Burns-Bewegung je Foto, optionalen Wolken-/Sternen-Overlays und einem "Quiz starten"-Link |
-| `CapitalTile` (`country/`) | Hauptstadt-Kachel mit bewegtem Foto-Hintergrund (Ken Burns) |
-| `ClockTile` (`country/`) | Live-Uhr Hamburg + Hauptstadt, sekündlich aktualisiert, inkl. Sonnenauf-/-untergang |
+| `CapitalTile` (`country/`) | Hauptstadt-Kachel mit bewegtem Foto-Hintergrund (Ken Burns), zeigt optional `facts.capitalPopulation` als kleine Einwohner:innen-Angabe unter dem Stadtnamen. Wächst automatisch über zwei Grid-Zeilen (`grid-row: span 2`), sobald `facts.localTimeSystem` gesetzt ist — kein eigenes Datenfeld nötig, das ist an dieselbe Bedingung wie `LocalTimeSystemTile` gekoppelt |
+| `ClockTile` (`country/`) | Live-Uhr Hamburg + Hauptstadt, sekündlich aktualisiert, inkl. Sonnenauf-/-untergang — bewusst immer nur diese zwei Blöcke, für jedes Land identisch |
+| `LocalTimeSystemTile` (`country/`) | Eigene, optionale 4-Spalten-Kachel für `facts.localTimeSystem` (traditionelle, vom internationalen 24h-Format abweichende Tageszählung, z. B. Äthiopien): links Lokalzeit + Label + Hinweis, rechts optional `calendar`-Hinweis, darunter über die volle Breite der Reisehinweis. Rendert `null`, wenn `facts.localTimeSystem` fehlt |
 | `WeatherTile` (`country/`) | Aktuelles Wetter Hamburg + Hauptstadt via Open-Meteo, alle 15 Min. aktualisiert |
-| `CurrencyConverter` (`country/`) | Interaktiver EUR-Rechner auf Basis von `eurExchangeRate` |
+| `CurrencyConverter` (`country/`) | Interaktiver, **bidirektionaler** EUR-Rechner auf Basis von `eurExchangeRate` — beide Felder (EUR und Landeswährung) sind editierbar, Eingabe in einem Feld rechnet live das jeweils andere um |
 | `PhrasebookTile` (`country/`) | Scrollbarer Mini-Sprachführer (Alltagssprache), 2 Spalten breit |
 | `HistoryTile` (`country/`) | Scrollbare Zeitleiste (`history[]`), 3 Spalten breit, steht neben Nachbarländer (ebenfalls 3 Spalten) |
 | `NeighborsHistoryGrid` (`country/`) | Zweiter `.fact-grid`-Block (Nachbarländer + `HistoryTile`) |
@@ -307,7 +326,7 @@ Fakten, kein optionales Polishing.
 | `EventsSection` / `EventCard` (`country/`) | Zwei Gruppen ("In Hamburg" / "In `<Land>`") mit `eventsHamburg[]`/`eventsCountry[]`; steht vor `CommunityGroups`; bei leerem Array pro Gruppe ehrlicher Hinweistext statt leerem Raster |
 | `CommunityGroups` / `CommunityCard` (`country/`) | Vereine/Communities mit Wurzeln im Land, aktiv in Hamburg; Kontaktwege als `mailto:`/`tel:`/Website-Links; bei leerem `communitiesHamburg[]` ehrlicher Hinweistext statt leerem Raster |
 | `VoicesTile` (`country/`) | "Stimmen zum Land": kuratierte `voices[]` (für alle sichtbar) + eigene Beiträge im `localStorage` des Browsers (nur lokal, bleiben beim Wiederkommen erhalten, editier-/löschbar); steht vor dem Quiz. Kein Backend, keine geteilte Datenbank — siehe Hinweise unten |
-| `Quiz` / `QuizQuestion` / `QuizResult` (`country/`) | Eine Frage auf einmal, Multiple Choice, Sperre nach Auswahl, Erklärung, Score + Retry |
+| `Quiz` / `QuizQuestion` / `QuizResult` (`country/`) | Eine Frage auf einmal, Multiple Choice, Sperre nach Auswahl, Erklärung, Score + Retry. Wählt aus `quiz[]` per `pickRandomQuestions` (`src/utils/quiz.js`) zufällig **8** Fragen aus, gemischt bei jedem Seitenaufruf/Mount, aber stabil über „Retry“ hinweg innerhalb desselben Besuchs. Hat ein Land 8 oder weniger Fragen, ändert sich nichts (nur Fragen mit größerem Pool profitieren) |
 
 ## UX-Regel
 

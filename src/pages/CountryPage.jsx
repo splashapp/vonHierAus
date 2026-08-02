@@ -80,7 +80,9 @@ export default function CountryPage() {
 
       <Section
         title="Gerichte & Rezepte"
-        teaser="Die kulinarischen Highlights des Landes – zum Nachkochen."
+        teaser={
+          data.dishesTeaser ?? 'Die kulinarischen Highlights des Landes – zum Nachkochen.'
+        }
         defaultOpen
       >
         <DishGrid dishes={data.dishes} />

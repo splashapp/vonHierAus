@@ -44,6 +44,8 @@ const template = {
   facts: {
     capital: '',
     capitalImage: { src: '', alt: '', credit: '' }, // Foto der Hauptstadt, Hintergrund der Hauptstadt-Kachel
+    capitalPopulation: '', // Einwohnerzahl der Hauptstadt selbst (Stadtgebiet, nicht Agglomeration),
+    // gleiches Format wie population unten, z.B. '≈516.000' oder '≈1,3 Mio.'
     population: '', // aktuelle Schätzung, ohne Quellenklammer im Text, z.B. '≈17 Mio.'
     government: '',
     officialLanguages: [],
@@ -55,6 +57,17 @@ const template = {
     timezone: '', // IANA-Zeitzone der Hauptstadt, z.B. 'Africa/Casablanca' — treibt die Live-Uhr
     capitalCoords: { lat: 0, lon: 0 }, // Dezimalgrad der Hauptstadt — treibt Sonnenauf-/-untergang
     neighbors: [], // Nachbarländer als Strings, sachlich formuliert
+    // Optional: nur ausfüllen, wenn das Land traditionell eine vom internationalen 24h-Format
+    // abweichende Tageszählung verwendet (Beispiel: äthiopische Zeitrechnung, Tag beginnt bei
+    // Sonnenaufgang statt Mitternacht — 12h-Zyklus, verschoben um offsetHours). Treibt die
+    // eigene LocalTimeSystemTile (NICHT ClockTile, der bleibt für jedes Land einfach: nur
+    // Hamburg + Hauptstadt international). `calendar` ist ebenfalls optional — nur befüllen,
+    // wenn das Land zusätzlich einen eigenen, vom gregorianischen Kalender abweichenden
+    // Kalender verwendet (Beispiel: äthiopischer Kalender mit 13 Monaten).
+    // localTimeSystem: {
+    //   label: '', offsetHours: 0, note: '', travelTip: '',
+    //   calendar: { label: '', headline: '', description: '' },
+    // },
   },
 
   // Die im Alltag gesprochene Landessprache (nicht zwingend die Amtssprache/Hochsprache) —
@@ -99,6 +112,13 @@ const template = {
     // { title: '', year: 0, note: '', url: '', image: { src: '', alt: '', credit: '' } },
     // image: ein echtes Foto des Drehorts/Schauplatzes, KEIN Filmposter (urheberrechtlich nicht frei)
   ],
+
+  // Optional: überschreibt den generischen Gerichte-Teaser in CountryPage.jsx
+  // ("Die kulinarischen Highlights des Landes – zum Nachkochen."). Meist nicht nötig — nur
+  // sinnvoll, wenn es einen landestypischen, ehrlichen Hinweis zur Küche gibt, der sonst
+  // fehlen würde (Beispiel: Äthiopien weist hier auf die Überschneidung mit der eritreischen
+  // Küche hin, weil Eritrea bis 1993 Teil Äthiopiens war).
+  // dishesTeaser: '',
 
   dishes: [
     // {
@@ -169,7 +189,8 @@ const template = {
     //   email: '', phone: '', url: '' }, // jeweils optional, aber mind. 1 Kontaktweg angeben
   ],
 
-  // Nur Multiple Choice, keine Texteingabe. 5-8 Fragen empfohlen.
+  // Nur Multiple Choice, keine Texteingabe. 5-8 Fragen empfohlen — mehr sind auch möglich,
+  // Quiz wählt daraus dann automatisch zufällig 8 pro Seitenaufruf aus.
   quiz: [
     // { question: '', options: ['', '', '', ''], correctIndex: 0, explanation: '' },
   ],

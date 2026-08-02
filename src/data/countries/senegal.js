@@ -35,6 +35,7 @@ const senegal = {
       alt: 'Die Moschee der Göttlichkeit an der Küste von Dakar',
       credit: 'Tbo47, Wikimedia Commons',
     },
+    capitalPopulation: '≈1,3 Mio.',
     population: '≈18,5 Mio.',
     government: 'Präsidiale Republik',
     officialLanguages: ['Französisch'],
