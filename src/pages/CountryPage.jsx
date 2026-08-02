@@ -1,5 +1,6 @@
+import { useEffect, useState } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
-import { countryRegistry } from '../data/countries/index.js';
+import { countryLoaders } from '../data/countries/index.js';
 import { countryCSSVars } from '../utils/theme.js';
 import SiteHeader from '../components/layout/SiteHeader.jsx';
 import SiteFooter from '../components/layout/SiteFooter.jsx';
@@ -23,9 +24,26 @@ import Quiz from '../components/country/Quiz.jsx';
 
 export default function CountryPage() {
   const { countryId } = useParams();
-  const data = countryRegistry[countryId];
+  const [data, setData] = useState(undefined); // undefined = lädt noch, null = kein Land mit dieser id
 
-  if (!data) return <Navigate to="/" replace />;
+  useEffect(() => {
+    const loader = countryLoaders[countryId];
+    if (!loader) {
+      setData(null);
+      return;
+    }
+    setData(undefined);
+    let cancelled = false;
+    loader().then((mod) => {
+      if (!cancelled) setData(mod.default);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [countryId]);
+
+  if (data === null) return <Navigate to="/" replace />;
+  if (data === undefined) return <div className="country-page-loading" aria-hidden="true" />;
 
   return (
     <div className="country-page" style={countryCSSVars(data.theme)}>

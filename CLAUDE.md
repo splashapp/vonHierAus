@@ -30,13 +30,24 @@ npm run build     # Produktions-Build nach dist/
 npm run preview   # Build lokal ansehen
 ```
 
+Deployment: Vercel ([von-hier-aus.vercel.app](https://von-hier-aus.vercel.app)). `vercel.json`
+enthält einen Rewrite (`/(.*) → /index.html`), ohne den würde ein direkter Aufruf/Reload einer
+Unterseite wie `/senegal` einen 404 vom statischen Hosting liefern, statt React Router den Weg
+clientseitig auflösen zu lassen (klassisches SPA-Routing-Problem, kein React-Bug) — bei einem
+Wechsel des Hosting-Anbieters muss die äquivalente Rewrite-Regel dort neu eingerichtet werden.
+
 ## Architektur
 
 - `src/pages/LandingPage.jsx` — Startseite mit `CountryGrid`/`CountryCard`-Kacheln für alle
   Länder aus `src/data/countries.js` (auch "coming-soon").
 - `src/pages/CountryPage.jsx` — generische, datengetriebene Länderseite. Route: `/:countryId`.
-  Schlägt die Daten in `src/data/countries/index.js` nach; existiert kein Eintrag, wird auf `/`
-  umgeleitet. **Diese Datei wird für ein neues Land nicht verändert**, nur die Reihenfolge/
+  Lädt die passende Länder-Datei über `countryLoaders` aus `src/data/countries/index.js` per
+  `dynamic import()` nach (Code-Splitting: jedes Land landet in einem eigenen JS-Chunk, der nur
+  beim Besuch dieser Route nachgeladen wird, statt das Bundle mit jedem neuen Land wachsen zu
+  lassen); existiert kein Eintrag, wird auf `/` umgeleitet. Sowohl `LandingPage` als auch
+  `CountryPage` selbst werden in `App.jsx` außerdem per `React.lazy()` geladen, damit z. B.
+  Leaflet (nur auf Länderseiten gebraucht) nicht im Bundle der Startseite landet. **Diese Datei
+  wird für ein neues Land ansonsten nicht verändert**, nur die Reihenfolge/
   Sichtbarkeit der Sections ist eine bewusste, für alle Länder geteilte redaktionelle
   Entscheidung (aktuelle Reihenfolge siehe Datei selbst — sie hat sich im Lauf der Zeit mehrfach
   geändert, die Datei ist die einzige Quelle der Wahrheit dafür, nicht dieses Dokument).
@@ -49,7 +60,9 @@ npm run preview   # Build lokal ansehen
   Wert (z. B. `'50% 70%'`), um den sichtbaren Bildausschnitt gezielt zu verschieben. Ohne
   `cardImage` fällt die Karte auf den Theme-Farbverlauf zurück.
 - `src/data/countries/<id>.js` — vollständiger Datensatz eines ausgebauten Landes (siehe Schema
-  unten). Wird über `src/data/countries/index.js` in die `countryRegistry` eingehängt.
+  unten). Wird über `src/data/countries/index.js` als eigener `countryLoaders`-Eintrag
+  (`() => import('./<id>.js')`) eingehängt — bewusst kein statischer Import, siehe Code-
+  Splitting-Hinweis oben bei `CountryPage.jsx`.
 - `src/data/countries/_template.js` — leere Schema-Vorlage mit Kommentaren für jedes Feld. Bei
   jeder Schema-Erweiterung **zuerst hier** den neuen Feld-Kommentar ergänzen, danach dieses
   Dokument.
@@ -77,7 +90,9 @@ npm run preview   # Build lokal ansehen
    anfühlen, nicht nur andersfarbig aussehen.
 4. `map.center` / `map.zoom` / `map.cities` mit echten, recherchierten Koordinaten befüllen
    (siehe "Kartenkonvention" unten).
-5. In `src/data/countries/index.js` importieren und unter der `id` eintragen.
+5. In `src/data/countries/index.js` einen `countryLoaders`-Eintrag ergänzen:
+   `<id>: () => import('./<id>.js')` (kein statischer Import — siehe Code-Splitting-Hinweis in
+   der Architektur oben).
 6. In `src/data/countries.js` den bestehenden Eintrag (falls vorhanden) von
    `status: 'coming-soon'` auf `status: 'active'` setzen, oder einen neuen Eintrag ergänzen
    (dort dieselben Theme-Farben wie in der vollen Datei verwenden, damit Landing-Karte und
