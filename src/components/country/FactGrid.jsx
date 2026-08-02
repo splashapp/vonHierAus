@@ -1,7 +1,8 @@
 import CapitalTile from './CapitalTile.jsx';
 import ClockTile from './ClockTile.jsx';
 import WeatherTile from './WeatherTile.jsx';
-import LocalTimeSystemTile from './LocalTimeSystemTile.jsx';
+import LocalTimeTile from './LocalTimeTile.jsx';
+import LocalCalendarTile from './LocalCalendarTile.jsx';
 import CurrencyConverter from './CurrencyConverter.jsx';
 import PhrasebookTile from './PhrasebookTile.jsx';
 
@@ -22,7 +23,8 @@ export default function FactGrid({ facts, phrasebook }) {
         capitalCoords={facts.capitalCoords}
       />
       <WeatherTile capital={facts.capital} capitalCoords={facts.capitalCoords} />
-      <LocalTimeSystemTile localTimeSystem={facts.localTimeSystem} capitalTimezone={facts.timezone} />
+      <LocalTimeTile localTimeSystem={facts.localTimeSystem} capitalTimezone={facts.timezone} />
+      <LocalCalendarTile calendar={facts.localTimeSystem?.calendar} />
 
       {(facts.population || facts.area) && (
         <div className="fact-tile">

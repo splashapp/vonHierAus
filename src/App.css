@@ -841,41 +841,13 @@ img {
   white-space: nowrap;
 }
 
-/* ---------- Local time system tile (z.B. äthiopische Zeitrechnung) ---------- */
+/* ---------- Local time & calendar tiles (z.B. äthiopische Zeitrechnung) ---------- */
 
-.fact-tile-localtime {
+.fact-tile-localtime,
+.fact-tile-localcalendar {
   text-align: left;
   container-type: inline-size;
-  grid-column: span 4;
-}
-
-.localtime-columns {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-4);
-}
-
-.localtime-col {
-  min-width: 0;
-}
-
-.localtime-col--calendar {
-  padding-left: var(--space-4);
-  border-left: 1px solid var(--color-border);
-}
-
-@container (max-width: 420px) {
-  .localtime-columns {
-    grid-template-columns: 1fr;
-  }
-
-  .localtime-col--calendar {
-    padding-left: 0;
-    padding-top: var(--space-3);
-    margin-top: var(--space-3);
-    border-left: none;
-    border-top: 1px solid var(--color-border);
-  }
+  grid-column: span 2;
 }
 
 .localtime-row {
@@ -885,8 +857,14 @@ img {
   gap: var(--space-2);
 }
 
-.localtime-time {
+.localtime-time-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   flex-shrink: 0;
+}
+
+.localtime-time {
   font-weight: 600;
   color: var(--color-primary);
   font-variant-numeric: tabular-nums;
@@ -925,13 +903,79 @@ img {
   color: var(--color-text-muted);
 }
 
-.localtime-travel-tip {
-  margin: var(--space-1) 0 0;
-  padding-top: var(--space-1);
-  border-top: 1px solid var(--color-border);
-  font-size: 0.66rem;
-  font-style: italic;
+/* ---------- Info popover (kleiner "i"-Button mit Klick-Popup) ---------- */
+
+.info-popover-trigger {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--color-text-muted);
+  background: none;
   color: var(--color-text-muted);
+  font-size: 0.65rem;
+  font-style: italic;
+  font-family: Georgia, serif;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.info-popover-trigger:hover,
+.info-popover-trigger:focus-visible {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.info-popover-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.info-popover-box {
+  position: relative;
+  max-width: 420px;
+  width: 100%;
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-card-bg);
+  color: var(--color-text);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.info-popover-box p {
+  margin: 0;
+  padding-right: var(--space-3);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.info-popover-close {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: none;
+  color: var(--color-text-muted);
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.info-popover-close:hover,
+.info-popover-close:focus-visible {
+  color: var(--color-primary);
 }
 
 /* ---------- Weather tile ---------- */

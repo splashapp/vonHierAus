@@ -198,15 +198,17 @@ Hinweise zu den besonderen `facts`-Feldern:
 - `localTimeSystem` (optional, `{label, offsetHours, note?, travelTip?, calendar?}`) — nur für
   Länder mit einer traditionellen, vom internationalen 24h-Format abweichenden Tageszählung
   befüllen (Beispiel: die äthiopische Zeitrechnung beginnt den Tag bei Sonnenaufgang ≈ 6 Uhr
-  statt um Mitternacht, ein eigener 12h-Zyklus). Treibt die eigene, separate
-  `LocalTimeSystemTile` (siehe Komponenten-Referenz) — **nicht** `ClockTile`, der bleibt für
-  jedes Land bewusst einfach (nur Hamburg + Hauptstadt in internationaler Zeit), damit
-  `localTimeSystem` sich optisch klar als eigener, zusätzlicher Fakt abhebt statt einen der
-  Kernkästen zu verändern. `offsetHours` ist die Verschiebung gegenüber der internationalen
-  Uhrzeit der Hauptstadt (`facts.timezone`). `calendar` (optional,
-  `{label, headline, description}`) ergänzt einen eigenen Kalender-Hinweis daneben, falls das
-  Land zusätzlich einen vom gregorianischen Kalender abweichenden Kalender verwendet (Beispiel:
-  der äthiopische Kalender mit 13 Monaten und einem Versatz von 7–8 Jahren). Für die meisten
+  statt um Mitternacht, ein eigener 12h-Zyklus). Treibt zwei eigene, separate Kacheln,
+  `LocalTimeTile` und `LocalCalendarTile` (siehe Komponenten-Referenz) — **nicht** `ClockTile`,
+  der bleibt für jedes Land bewusst einfach (nur Hamburg + Hauptstadt in internationaler Zeit).
+  Bewusst zwei schmale 2-Spalten-Kacheln statt einer breiten 4-Spalten-Kachel, damit das Layout
+  auf schmalen Bildschirmen (Handy) nicht zusammenbricht. `offsetHours` ist die Verschiebung
+  gegenüber der internationalen Uhrzeit der Hauptstadt (`facts.timezone`). `travelTip` erscheint
+  nicht mehr als Dauertext, sondern hinter einem kleinen "i"-Info-Button neben der Uhrzeit
+  (`InfoPopover`, siehe unten) — Klick öffnet ein Popup mit dem Text. `calendar` (optional,
+  `{label, headline, description}`) treibt die zweite Kachel, falls das Land zusätzlich einen
+  vom gregorianischen Kalender abweichenden Kalender verwendet (Beispiel: der äthiopische
+  Kalender mit 13 Monaten). Für die meisten
   Länder bleibt `localTimeSystem` einfach weg, kein Pflichtfeld.
 
 `WeatherTile` ist die einzige Komponente mit einer echten externen Netzwerkabhängigkeit: sie holt
@@ -303,13 +305,15 @@ Fakten, kein optionales Polishing.
 | `Card` (`shared/`) | Generische Bild+Titel+Text-Karte, Basis für Gerichte/Reiseziele/Filme/Restaurants/Personen. Optionales `imageAction`-Prop macht das Foto selbst zum Interaktionselement (Hover-Zoom + Overlay-Label) — siehe "Bild-Interaktions-Konvention" unten |
 | `FlagBadge` (`shared/`) | Kleines Flaggen-Icon (abgerundete Ecken), z. B. im `SiteHeader` |
 | `GoogleFontLoader` (`shared/`) | Lädt `theme.googleFontUrl` nur für das aktive Land, räumt beim Unmount auf |
+| `InfoPopover` (`shared/`) | Kleiner "i"-Button, öffnet bei Klick ein zentriertes Popup (Backdrop + Karte, schließbar per Klick daneben oder ×) mit beliebigem Zusatztext — generisch, nicht auf Äthiopien beschränkt |
 | `SiteHeader` (`layout/`) | Sticky Kopfzeile. Auf der Länderseite zeigt sie Flagge + Landesname (`FlagBadge`) statt des generischen "🌍 Virtuelle Afrikareise"-Titels, plus "← Übersicht"-Link zurück zur Landing Page |
 | `MosaicHero` (`landing/`) | Vollflächiger Startseiten-Header: 500 prozedural generierte Farb-/Muster-Kacheln (kein Foto, keine Recherche nötig) hinter Eyebrow/H1/Lede/CTA-Link zu `/morocco`; eigenes Fraunces/Inter-Fontpaar per `GoogleFontLoader`, respektiert `prefers-reduced-motion` (Kachel-Einblendung entfällt dann) |
 | `CountryGrid` / `CountryCard` (`landing/`) | Kachel-Raster der Startseite, aktive Karten mit bewegtem Foto + eigenem Theme |
 | `CountryHero` / `FactGrid` | Immer sichtbarer "Broschüren-Umschlag", NICHT in `Section` gewrappt. `CountryHero` rotiert `heroSlides` mit Punkt-Navigation, Ken-Burns-Bewegung je Foto, optionalen Wolken-/Sternen-Overlays und einem "Quiz starten"-Link |
-| `CapitalTile` (`country/`) | Hauptstadt-Kachel mit bewegtem Foto-Hintergrund (Ken Burns), zeigt optional `facts.capitalPopulation` als kleine Einwohner:innen-Angabe unter dem Stadtnamen. Wächst automatisch über zwei Grid-Zeilen (`grid-row: span 2`), sobald `facts.localTimeSystem` gesetzt ist — kein eigenes Datenfeld nötig, das ist an dieselbe Bedingung wie `LocalTimeSystemTile` gekoppelt |
+| `CapitalTile` (`country/`) | Hauptstadt-Kachel mit bewegtem Foto-Hintergrund (Ken Burns), zeigt optional `facts.capitalPopulation` als kleine Einwohner:innen-Angabe unter dem Stadtnamen. Wächst automatisch über zwei Grid-Zeilen (`grid-row: span 2`), sobald `facts.localTimeSystem` gesetzt ist — kein eigenes Datenfeld nötig, das ist an dieselbe Bedingung wie `LocalTimeTile`/`LocalCalendarTile` gekoppelt |
 | `ClockTile` (`country/`) | Live-Uhr Hamburg + Hauptstadt, sekündlich aktualisiert, inkl. Sonnenauf-/-untergang — bewusst immer nur diese zwei Blöcke, für jedes Land identisch |
-| `LocalTimeSystemTile` (`country/`) | Eigene, optionale 4-Spalten-Kachel für `facts.localTimeSystem` (traditionelle, vom internationalen 24h-Format abweichende Tageszählung, z. B. Äthiopien): links Lokalzeit + Label + Hinweis, rechts optional `calendar`-Hinweis, darunter über die volle Breite der Reisehinweis. Rendert `null`, wenn `facts.localTimeSystem` fehlt |
+| `LocalTimeTile` (`country/`) | Eigene, optionale 2-Spalten-Kachel für `facts.localTimeSystem` (traditionelle, vom internationalen 24h-Format abweichende Tageszählung, z. B. Äthiopien): Lokalzeit + Label + Hinweis; `travelTip` sitzt hinter einem `InfoPopover`-Button neben der Uhrzeit statt als Dauertext. Rendert `null`, wenn `facts.localTimeSystem` fehlt |
+| `LocalCalendarTile` (`country/`) | Eigene, optionale 2-Spalten-Kachel für `facts.localTimeSystem.calendar` (z. B. der äthiopische 13-Monats-Kalender), steht direkt neben `LocalTimeTile`. Rendert `null`, wenn `calendar` fehlt |
 | `WeatherTile` (`country/`) | Aktuelles Wetter Hamburg + Hauptstadt via Open-Meteo, alle 15 Min. aktualisiert |
 | `CurrencyConverter` (`country/`) | Interaktiver, **bidirektionaler** EUR-Rechner auf Basis von `eurExchangeRate` — beide Felder (EUR und Landeswährung) sind editierbar, Eingabe in einem Feld rechnet live das jeweils andere um |
 | `PhrasebookTile` (`country/`) | Scrollbarer Mini-Sprachführer (Alltagssprache), 2 Spalten breit |

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import InfoPopover from '../shared/InfoPopover.jsx';
 
 // Manche Länder zählen den Tag traditionell nicht ab Mitternacht, sondern ab Sonnenaufgang
 // (z.B. die äthiopische Zeitrechnung, Tagesbeginn ≈ 6 Uhr international = 0 Uhr lokal) — ein
@@ -17,7 +18,7 @@ function formatLocalCycleTime(date, timeZone, offsetHours) {
   return `${String(localHour).padStart(2, '0')}:${get('minute')}:${get('second')}`;
 }
 
-export default function LocalTimeSystemTile({ localTimeSystem, capitalTimezone }) {
+export default function LocalTimeTile({ localTimeSystem, capitalTimezone }) {
   const [now, setNow] = useState(() => new Date());
 
   useEffect(() => {
@@ -27,29 +28,18 @@ export default function LocalTimeSystemTile({ localTimeSystem, capitalTimezone }
 
   if (!localTimeSystem || !capitalTimezone) return null;
 
-  const { label, offsetHours, note, calendar, travelTip } = localTimeSystem;
+  const { label, offsetHours, note, travelTip } = localTimeSystem;
 
   return (
     <div className="fact-tile fact-tile-localtime">
-      <div className="localtime-columns">
-        <div className="localtime-col">
-          <div className="localtime-row">
-            <span className="localtime-time">{formatLocalCycleTime(now, capitalTimezone, offsetHours)}</span>
-            <span className="localtime-label">{label}</span>
-          </div>
-          {note && <div className="localtime-note">{note}</div>}
-        </div>
-        {calendar && (
-          <div className="localtime-col localtime-col--calendar">
-            <div className="localtime-row">
-              <span className="localtime-calendar-headline">{calendar.headline}</span>
-              <span className="localtime-label">{calendar.label}</span>
-            </div>
-            <p className="localtime-calendar-desc">{calendar.description}</p>
-          </div>
-        )}
+      <div className="localtime-row">
+        <span className="localtime-time-group">
+          <span className="localtime-time">{formatLocalCycleTime(now, capitalTimezone, offsetHours)}</span>
+          {travelTip && <InfoPopover label="Reisehinweis zur äthiopischen Zeit">{travelTip}</InfoPopover>}
+        </span>
+        <span className="localtime-label">{label}</span>
       </div>
-      {travelTip && <p className="localtime-travel-tip">{travelTip}</p>}
+      {note && <div className="localtime-note">{note}</div>}
     </div>
   );
 }
