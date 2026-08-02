@@ -371,3 +371,32 @@ als zusätzliche Abstraktionsschicht — `MapSection` initialisiert Leaflet dire
 
 `MapSection` ist vollständig generisch — für ein neues Land wird dort nichts verändert, nur
 `map.center`/`map.zoom`/`map.cities` in der Länder-Datei neu befüllt.
+
+## SEO & Crawler-Sichtbarkeit
+
+- `src/components/shared/PageMeta.jsx` setzt pro Route imperativ (gleiches Muster wie
+  `GoogleFontLoader`) `document.title`, `<meta name="description">`, `<link rel="canonical">`,
+  Open-Graph-/Twitter-Tags und ein `<script type="application/ld+json">`. Eingebunden in
+  `LandingPage.jsx` (Website-weite Werte + `WebSite`-JSON-LD) und `CountryPage.jsx`
+  (länderspezifisch: Titel `"<Land> | Virtuelle Afrikareise"`, generierte Description aus
+  `tagline`, OG-Bild aus `heroSlides[0]`/`heroImage`, `TouristDestination` + ein `Recipe`-Eintrag
+  je `dishes[]` als JSON-LD — Letzteres macht Google-Rich-Snippets für Rezepte möglich).
+  Description/Bild/JSON-LD werden aus `src/utils/seo.js` gebaut, nicht per Hand pro Land
+  gepflegt — bei neuen Datenfeldern in `dishes[]`/`facts` ggf. dort mit anpassen.
+- **Wichtige Grenze**: `PageMeta` ändert den `<head>` erst nach dem React-Mount per JavaScript.
+  Das reicht für Google (rendert JS, nur zeitversetzt) und für die meisten echten Nutzer:innen,
+  **aber nicht** für Crawler, die kein JavaScript ausführen — dazu zählen praktisch alle
+  Social-Media-Linkvorschauen (WhatsApp, Twitter/X, LinkedIn, Facebook) und die meisten
+  KI-Suchcrawler (Perplexity, ChatGPT, Claude). Für die liefert der Server nur das leere
+  `#root`-Div von `index.html` plus die dort hinterlegten **statischen Startseiten-Defaults**
+  (siehe `index.html`-Kopf) — Unterseiten wie `/senegal` sehen für solche Crawler identisch zur
+  Startseite aus, mit Startseiten-Titel/-Bild/-Description statt der länderspezifischen Werte.
+  Der einzige vollständige Fix dafür wäre serverseitiges Rendering oder Prerendering/SSG (z. B.
+  über einen zusätzlichen Build-Schritt, der jede Route einmal rendert und als statisches HTML
+  ablegt) — das ist eine bewusste, noch nicht getroffene Architekturentscheidung, kein Bug, und
+  wurde bisher nicht umgesetzt, um die Vite-SPA-Einfachheit des Projekts nicht ungefragt durch
+  ein neues Build-/Deploy-Werkzeug zu ersetzen.
+- `public/robots.txt` verweist auf `/sitemap.xml`. `scripts/generate-sitemap.js` erzeugt
+  `dist/sitemap.xml` automatisch nach jedem `npm run build` (per `postbuild`-Script) aus den
+  `status: 'active'`-Einträgen in `src/data/countries.js` — bei einem neuen Land also keine
+  dritte Stelle, die manuell gepflegt werden müsste.

@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { countryLoaders } from '../data/countries/index.js';
 import { countryCSSVars } from '../utils/theme.js';
+import { countryMetaDescription, countryOgImage, buildCountryJsonLd } from '../utils/seo.js';
 import SiteHeader from '../components/layout/SiteHeader.jsx';
 import SiteFooter from '../components/layout/SiteFooter.jsx';
 import Section from '../components/shared/Section.jsx';
 import GoogleFontLoader from '../components/shared/GoogleFontLoader.jsx';
+import PageMeta from '../components/shared/PageMeta.jsx';
 import CountryHero from '../components/country/CountryHero.jsx';
 import FactGrid from '../components/country/FactGrid.jsx';
 import NeighborsHistoryGrid from '../components/country/NeighborsHistoryGrid.jsx';
@@ -47,6 +49,13 @@ export default function CountryPage() {
 
   return (
     <div className="country-page" style={countryCSSVars(data.theme)}>
+      <PageMeta
+        title={data.name}
+        description={countryMetaDescription(data)}
+        path={`/${data.id}`}
+        image={countryOgImage(data)}
+        jsonLd={buildCountryJsonLd(data)}
+      />
       <GoogleFontLoader href={data.theme.googleFontUrl} />
       <SiteHeader flagImage={data.flagImage} name={data.name} />
       <CountryHero data={data} />
