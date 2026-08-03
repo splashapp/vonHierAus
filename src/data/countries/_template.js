@@ -8,6 +8,11 @@ const template = {
   name: '', // deutscher Anzeigename, z.B. 'Senegal'
   nameEn: '',
   tagline: '', // kurzer Werbeslogan, 1 Zeile
+  // Optional: längerer Stimmungs-Absatz direkt unter der Tagline im Hero (immer sichtbar,
+  // "Broschüren-Umschlag") — nur nutzen, wenn es einen prägnanten, landestypischen Charakterzug
+  // gibt, der mehr als eine Zeile verdient (Beispiel: Marokko fängt hier seinen doppelten
+  // Charakter zwischen mediterranem Einfluss und Sahara ein).
+  // heroLede: '',
 
   // 'active' macht das Land auf der Landing Page klickbar, 'coming-soon' zeigt eine deaktivierte Karte
   status: 'coming-soon',
@@ -93,21 +98,26 @@ const template = {
     // { year: '', event: '' },
   ],
 
-  // Optional: kleiner Zusatzhinweis DIREKT IN der Nachbarländer-Kachel selbst (unter der
-  // Länderliste, kleinere Schrift) — für einen kurzen praktischen Hinweis zu den
-  // Nachbarländern selbst (Beispiel: Äthiopien nutzt das für einen Reisekombinations-Hinweis:
-  // welche Nachbarländer aktuell unkompliziert bereisbar sind).
-  // neighborsNote: { label: '', text: '' },
+  // Optional: kleine Zusatzhinweise DIREKT IN der Nachbarländer-Kachel selbst (unter der
+  // Länderliste, kleinere Schrift, in Array-Reihenfolge gestapelt) — für kurze praktische/
+  // historische Hinweise zu den Nachbarländern selbst (Beispiel: Marokko nutzt zwei Einträge —
+  // einen Reisekombinations-Hinweis und einen historischen Hinweis speziell zur
+  // Algerien-Grenze).
+  // neighborsNotes: [
+  //   { label: '', text: '' },
+  // ],
 
   // Optional: ein Array generischer 2-Spalten-Zusatzinfo-Kacheln, die als EIGENE Kacheln direkt
   // neben Nachbarländer + Timeline erscheinen (NeighborsHistoryGrid), in der angegebenen
-  // Reihenfolge — für Kontext, der zu umfangreich für neighborsNote ist. Nur befüllen, wenn es
+  // Reihenfolge — für Kontext, der zu umfangreich für neighborsNotes ist. Nur befüllen, wenn es
   // wichtigen kulturellen/historischen Kontext gibt, der sonst in keinem Fakten-Feld unterkäme
   // (Beispiel: Äthiopien nutzt das für die stabile Koexistenz von orthodoxem Christentum und
-  // Islam seit der "ersten Hijra"). `large: true` macht eine einzelne Kachel bewusst höher/
-  // prominenter (visuell "2x2" statt "2x1") — sparsam einsetzen.
+  // Islam seit der "ersten Hijra", Marokko für seine geopolitische Doppelrolle zwischen Europa
+  // und der arabisch-islamischen Welt). `text` darf ein einzelner String (ein Absatz) oder ein
+  // Array mehrerer Absätze sein (NoteTile rendert dann mehrere <p>). `large: true` macht eine
+  // einzelne Kachel bewusst höher/prominenter (visuell "2x2" statt "2x1") — sparsam einsetzen.
   // neighborsHistoryNotes: [
-  //   { label: '', text: '', large: false },
+  //   { label: '', text: '', large: false }, // text: '' oder text: ['Absatz 1', 'Absatz 2']
   // ],
 
   // Echte interaktive OpenStreetMap-Karte (Leaflet). center/zoom so wählen, dass das Land

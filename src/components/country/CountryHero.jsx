@@ -142,6 +142,7 @@ export default function CountryHero({ data }) {
         </div>
         <h1>{data.name}</h1>
         <p className="country-hero-tagline">{data.tagline}</p>
+        {data.heroLede && <p className="country-hero-lede">{data.heroLede}</p>}
       </motion.div>
     </div>
   );

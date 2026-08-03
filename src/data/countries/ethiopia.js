@@ -139,11 +139,13 @@ const ethiopia = {
     { year: '100–940 n. Chr.', event: 'Das Aksumitische Reich blüht als eine der bedeutendsten Handelsmächte der Antike; König Ezana tritt im 4. Jh. zum Christentum über.' },
   ],
 
-  // Kleiner Zusatzhinweis direkt in der Nachbarländer-Kachel selbst (siehe NeighborsHistoryGrid).
-  neighborsNote: {
-    label: 'Reisekombination',
-    text: 'Kombinierbar mit Kenia (unkompliziert) und Dschibuti (Bahnverbindung ab Addis Abeba). Alle anderen Nachbarländer haben aktuell Reisewarnungen des Auswärtigen Amts – vor der Planung prüfen.',
-  },
+  // Kleine Zusatzhinweise direkt in der Nachbarländer-Kachel selbst (siehe NeighborsHistoryGrid).
+  neighborsNotes: [
+    {
+      label: 'Reisekombination',
+      text: 'Kombinierbar mit Kenia (unkompliziert) und Dschibuti (Bahnverbindung ab Addis Abeba). Alle anderen Nachbarländer haben aktuell Reisewarnungen des Auswärtigen Amts – vor der Planung prüfen.',
+    },
+  ],
 
   // Eigene Kachel(n) direkt neben Nachbarländer + Timeline (siehe NeighborsHistoryGrid) —
   // ergänzender kultureller Kontext, der sonst in keinem Fakten-Feld unterkäme.

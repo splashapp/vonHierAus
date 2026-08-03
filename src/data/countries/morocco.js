@@ -5,6 +5,10 @@ const morocco = {
   name: 'Marokko',
   nameEn: 'Morocco',
   tagline: 'Zwischen Wüste, Atlas und Atlantik',
+  // Optionaler, längerer Stimmungs-Absatz direkt unter der Tagline im Hero — hier bewusst
+  // genutzt, um Marokkos doppelten Charakter (mediterran UND Sahara) einzufangen.
+  heroLede:
+    'Nur 14 Kilometer trennen Marokko von Spanien. Diese Nähe spürt man: Olivenhaine, Zitrusgärten, weiß getünchte Fassaden, Meeresfrüchte an der Küste – vieles erinnert an Südeuropa. Gleichzeitig liegt dahinter die Sahara. Marokko ist beides gleichzeitig, und das macht seinen besonderen Charakter aus.',
   status: 'active',
 
   flagImage: { src: `${WM}/Flag_of_Morocco.svg`, alt: 'Flagge von Marokko', credit: 'Wikimedia Commons' },
@@ -121,11 +125,29 @@ const morocco = {
     { year: '789', event: 'Gründung von Fès durch Idris I. — erste islamische Dynastie Marokkos' },
   ],
 
-  // Kurzer Zusatzhinweis direkt in der Nachbarländer-Kachel selbst (siehe NeighborsHistoryGrid).
-  neighborsNote: {
-    label: 'Reisekombination',
-    text: 'Kombinierbar mit Spanien – Fähre ab Tanger nach Tarifa oder Algeciras (ca. 35 Minuten), eine der meistgenutzten Routen zwischen Afrika und Europa. Über die spanischen Exklaven Ceuta und Melilla ist ebenfalls ein Grenzübertritt möglich. Richtung Süden ist Mauretanien über den Grenzübergang Guerguerat erreichbar – abgelegen, aber machbar für Abenteuerreisende. Algerien ist nicht zugänglich: Die Grenze ist seit 1994 geschlossen, die diplomatischen Beziehungen seit 2021 abgebrochen.',
-  },
+  // Kurze Zusatzhinweise direkt in der Nachbarländer-Kachel selbst (siehe NeighborsHistoryGrid).
+  neighborsNotes: [
+    {
+      label: 'Reisekombination',
+      text: 'Kombinierbar mit Spanien – Fähre ab Tanger nach Tarifa oder Algeciras (ca. 35 Minuten), eine der meistgenutzten Routen zwischen Afrika und Europa. Über die spanischen Exklaven Ceuta und Melilla ist ebenfalls ein Grenzübertritt möglich. Richtung Süden ist Mauretanien über den Grenzübergang Guerguerat erreichbar – abgelegen, aber machbar für Abenteuerreisende. Algerien ist nicht zugänglich: Die Grenze ist seit 1994 geschlossen, die diplomatischen Beziehungen seit 2021 abgebrochen.',
+    },
+    {
+      label: 'Algerien-Historie',
+      text: 'Die geschlossene Grenze zu Algerien ist kein historisches Relikt, sondern aktive Geopolitik. Kern des Konflikts: Algerien unterstützt die Polisario-Front – die Unabhängigkeitsbewegung der Westsahara – mit Finanzmitteln und beherbergt deren Flüchtlingslager bei Tindouf auf eigenem Boden. Marokko betrachtet das als direkte Einmischung. 2021 brach Algerien die diplomatischen Beziehungen vollständig ab. Dahinter steht auch eine jahrzehntealte Rivalität um die Vorherrschaft im Maghreb.',
+    },
+  ],
+
+  // Eigene Kachel(n) direkt neben Nachbarländer + Timeline (siehe NeighborsHistoryGrid).
+  neighborsHistoryNotes: [
+    {
+      label: 'Geopolitische Lage',
+      text: [
+        'Marokko ist wirtschaftlich und kulturell tief mit Europa verwoben: Französisch ist Bildungs- und Geschäftssprache, die EU ist wichtigster Handelspartner, und eine große Diaspora in Frankreich, Spanien und Belgien überweist jährlich Milliarden nach Hause. Nur 14 Kilometer trennen das Land von Spanien.',
+        'Gleichzeitig ist Marokko Teil der arabisch-islamischen Welt – Mitglied der Arabischen Liga und der Organisation für Islamische Zusammenarbeit (OIC). Die Beziehungen zur Golfregion sind eng: Saudi-Arabien und die Emirate sind wichtige Investoren. Zur Türkei und zu Iran hingegen ist das Verhältnis distanzierter.',
+        'Marokko navigiert bewusst zwischen beiden Welten – und nutzt diese Doppelrolle als diplomatisches Kapital.',
+      ],
+    },
+  ],
 
   map: {
     center: { lat: 31.5, lon: -7.2 },

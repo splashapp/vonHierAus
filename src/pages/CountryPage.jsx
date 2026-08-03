@@ -69,7 +69,7 @@ export default function CountryPage() {
         neighbors={data.facts.neighbors}
         history={data.history}
         notes={data.neighborsHistoryNotes}
-        neighborsNote={data.neighborsNote}
+        neighborsNotes={data.neighborsNotes}
       />
 
       <Section
