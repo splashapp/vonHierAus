@@ -65,7 +65,12 @@ export default function CountryPage() {
         <DestinationGrid destinations={data.destinations} />
       </Section>
 
-      <NeighborsHistoryGrid neighbors={data.facts.neighbors} history={data.history} />
+      <NeighborsHistoryGrid
+        neighbors={data.facts.neighbors}
+        history={data.history}
+        notes={data.neighborsHistoryNotes}
+        neighborsNote={data.neighborsNote}
+      />
 
       <Section
         title="Karte & wichtige Städte"
@@ -90,7 +95,9 @@ export default function CountryPage() {
 
       <Section
         title={`${data.name}-Restaurants in Hamburg`}
-        teaser="So schmeckt das Land, auch ohne Flugticket."
+        teaser={
+          data.restaurantsTeaser ?? 'So schmeckt das Land, auch ohne Flugticket.'
+        }
         defaultOpen
       >
         <RestaurantList restaurants={data.restaurantsHamburg} countryName={data.name} />

@@ -129,12 +129,29 @@ const ethiopia = {
     { year: '2026', event: 'Abiy Ahmeds Prosperity Party gewinnt erneut deutlich die Parlamentswahl, während in Tigray, Oromia und Amhara weiterhin Spannungen bestehen.' },
     { year: '2022', event: 'Das Abkommen von Pretoria beendet den zweijährigen Tigray-Krieg zwischen Bundesregierung und TPLF.' },
     { year: '2020', event: 'Ausbruch des Tigray-Konflikts, nachdem Premier Abiy Ahmed – ein Jahr zuvor Friedensnobelpreisträger – Truppen gegen die TPLF entsendet.' },
+    { year: '2018', event: 'Friedensabkommen mit Eritrea nach 20 Jahren Konflikt – Grundlage für den Friedensnobelpreis 2019.' },
     { year: '1995', event: 'Neue Verfassung: Äthiopien wird als ethnisch-föderaler Bundesstaat neu konstituiert.' },
     { year: '1993', event: 'Unabhängigkeit Eritreas nach Referendum – Ende einer gemeinsamen Geschichte seit 1952. Seitdem getrennte Staaten mit gemeinsamer Küche: Injera, Berbere und Wat sind in beiden Ländern Grundlage der Alltagsküche.' },
     { year: '1991', event: 'Die EPRDF stürzt das kommunistische Derg-Regime; Diktator Mengistu Haile Mariam flieht ins Exil.' },
     { year: '1974', event: 'Die Militärjunta „Derg" stürzt Kaiser Haile Selassie I. und beendet die jahrhundertealte Monarchie.' },
+    { year: '1962', event: 'Kaiser Haile Selassie löst die Föderation auf und annektiert Eritrea einfach als äthiopische Provinz. Damit beginnt der Unabhängigkeitskampf.' },
     { year: '1896', event: 'Schlacht von Adwa: Äthiopien besiegt die italienische Invasionsarmee und bewahrt als einziges afrikanisches Land seine Unabhängigkeit während der Kolonialzeit.' },
     { year: '100–940 n. Chr.', event: 'Das Aksumitische Reich blüht als eine der bedeutendsten Handelsmächte der Antike; König Ezana tritt im 4. Jh. zum Christentum über.' },
+  ],
+
+  // Kleiner Zusatzhinweis direkt in der Nachbarländer-Kachel selbst (siehe NeighborsHistoryGrid).
+  neighborsNote: {
+    label: 'Reisekombination',
+    text: 'Kombinierbar mit Kenia (unkompliziert) und Dschibuti (Bahnverbindung ab Addis Abeba). Alle anderen Nachbarländer haben aktuell Reisewarnungen des Auswärtigen Amts – vor der Planung prüfen.',
+  },
+
+  // Eigene Kachel(n) direkt neben Nachbarländer + Timeline (siehe NeighborsHistoryGrid) —
+  // ergänzender kultureller Kontext, der sonst in keinem Fakten-Feld unterkäme.
+  neighborsHistoryNotes: [
+    {
+      label: 'Religion',
+      text: 'Äthiopien ist eines der wenigen Länder, wo orthodoxes Christentum (~43 %) und Islam (~34 %) seit Jahrhunderten stabil nebeneinander leben. Der historische Grund: Der Prophet Mohammed schickte seine frühen Anhänger ins christliche Äthiopien – der König gewährte ihnen Schutz. Diese Geschichte ist im islamischen Gedächtnis als „erste Hijra" verankert und prägt das Verhältnis bis heute.',
+    },
   ],
 
   map: {
@@ -173,9 +190,9 @@ const ethiopia = {
   ],
 
   // Überschreibt den generischen Gerichte-Teaser aus CountryPage.jsx — hier bewusst mit einem
-  // ehrlichen Hinweis zur äthiopisch-eritreischen Küchen-Überschneidung ergänzt (siehe unten).
+  // Hinweis zur veganen Fastentradition der äthiopisch-orthodoxen Kirche ergänzt.
   dishesTeaser:
-    'Die kulinarischen Highlights des Landes – zum Nachkochen. Äthiopisch und eritreisch werden in Restaurants und Rezepten oft zusammen geführt – die Küchen überschneiden sich stark (Injera, Berbere-Gewürze), weil Eritrea bis 1993 Teil Äthiopiens war. Ein ehrlicher Hinweis: Wer „äthiopisch essen" sucht, landet deshalb oft bei eritreischen Betreiber:innen.',
+    'Die kulinarischen Highlights des Landes – zum Nachkochen. Die äthiopisch-orthodoxe Kirche schreibt an rund 200 Tagen im Jahr veganes Essen vor – jeden Mittwoch, jeden Freitag und in der langen Fastenzeit vor Ostern. Das erklärt, warum die äthiopische Küche eine der reichhaltigsten veganen Traditionen der Welt hat.',
 
   dishes: [
     {
@@ -335,6 +352,11 @@ const ethiopia = {
     },
   ],
 
+  // Überschreibt den generischen Restaurant-Teaser aus CountryPage.jsx — hier bewusst mit einem
+  // ehrlichen Hinweis zur äthiopisch-eritreischen Küchen-Überschneidung ergänzt.
+  restaurantsTeaser:
+    'So schmeckt das Land, auch ohne Flugticket. Äthiopisch und eritreisch werden in Restaurants und Rezepten oft zusammen geführt – die Küchen überschneiden sich stark (Injera, Berbere-Gewürze), weil Eritrea bis 1993 Teil Äthiopiens war. Ein ehrlicher Hinweis: Wer „äthiopisch essen" sucht, landet deshalb oft bei eritreischen Betreiber:innen.',
+
   restaurantsHamburg: [
     {
       name: 'Restaurant ETHIO',
@@ -359,10 +381,7 @@ const ethiopia = {
       address: 'Keplerstraße 17a, 22763 Hamburg-Ottensen',
       url: 'https://www.karlscafeweine.de/',
       image: { src: `${WM}/Ethiopian_Coffee_Ceremony_(1).jpg`, alt: 'Äthiopische Kaffeezeremonie', credit: 'Wikimedia Commons' },
-      menuHighlights: [
-        { name: 'Teff-Injera mit Doro Wot', price: 'auf Anfrage', desc: 'Klassisches Injera mit würzigem Hühnereintopf.' },
-        { name: 'Kaffeezeremonie mit Fendisha', price: 'auf Anfrage', desc: 'Äthiopisch-eritreische Kaffeezeremonie mit geröstetem Popcorn.' },
-      ],
+      visitNote: 'Bietet u. a. äthiopische Kaffeezeremonie.',
     },
   ],
 
@@ -610,6 +629,56 @@ const ethiopia = {
       options: ['Pagumē', 'Meskerem', 'Timkat', 'Enkutatash'],
       correctIndex: 0,
       explanation: 'Pagumē dauert nur 5 Tage (6 in Schaltjahren) und gleicht das Sonnenjahr aus.',
+    },
+    {
+      question: 'Wofür erhielt Premierminister Abiy Ahmed 2019 den Friedensnobelpreis?',
+      options: [
+        'Für das Friedensabkommen mit Eritrea 2018 nach 20 Jahren Konflikt',
+        'Für die Gründung der Afrikanischen Union',
+        'Für die Ausrufung der Republik 1974',
+        'Für den Bau der Grand-Ethiopian-Renaissance-Talsperre',
+      ],
+      correctIndex: 0,
+      explanation: 'Das Friedensabkommen mit Eritrea 2018 beendete einen jahrzehntelangen Konflikt und war Grundlage für den Friedensnobelpreis 2019.',
+    },
+    {
+      question: 'Was geschah 1993 mit dem ehemals äthiopischen Eritrea?',
+      options: [
+        'Es wurde nach einem Referendum unabhängig',
+        'Es wurde offiziell zur äthiopischen Hauptstadtregion erklärt',
+        'Es schloss sich Somalia an',
+        'Es erhielt als erstes Land Afrikas eine EU-Mitgliedschaft',
+      ],
+      correctIndex: 0,
+      explanation: 'Nach einem Referendum wurde Eritrea 1993 unabhängig – Ende einer gemeinsamen Geschichte seit der Föderation von 1952.',
+    },
+    {
+      question: 'Welche zwei Religionen leben in Äthiopien seit Jahrhunderten stabil nebeneinander?',
+      options: [
+        'Orthodoxes Christentum (~43 %) und Islam (~34 %)',
+        'Katholizismus und Buddhismus',
+        'Protestantismus und Hinduismus',
+        'Nur orthodoxes Christentum, Islam kam erst im 20. Jahrhundert',
+      ],
+      correctIndex: 0,
+      explanation: 'Äthiopien ist eines der wenigen Länder, in denen beide Religionen seit Jahrhunderten in stabiler Koexistenz leben.',
+    },
+    {
+      question: 'Wie wird die Geschichte genannt, dass der Prophet Mohammed frühe Anhänger ins christliche Äthiopien schickte, wo der König ihnen Schutz gewährte?',
+      options: ['Die „erste Hijra"', 'Der „Große Exodus"', 'Die „Reise nach Adwa"', 'Der „Aksum-Pakt"'],
+      correctIndex: 0,
+      explanation: 'Diese Geschichte ist im islamischen Gedächtnis als „erste Hijra" verankert und prägt das christlich-muslimische Verhältnis in Äthiopien bis heute.',
+    },
+    {
+      question: 'Warum hat die äthiopische Küche eine der reichhaltigsten veganen Traditionen der Welt?',
+      options: [
+        'Die äthiopisch-orthodoxe Kirche schreibt an rund 200 Tagen im Jahr veganes Essen vor',
+        'Fleisch war historisch zu teuer für die meisten Haushalte',
+        'Nutztiere sind in weiten Teilen des Landes religiös tabu',
+        'Der Export von Fleisch war lange gesetzlich verboten',
+      ],
+      correctIndex: 0,
+      explanation: 'Jeden Mittwoch, jeden Freitag und in der langen Fastenzeit vor Ostern gilt veganes Essen als Vorschrift – das prägt die Alltagsküche bis heute.',
     },
   ],
 

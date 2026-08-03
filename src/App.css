@@ -1141,15 +1141,47 @@ img {
   font-style: italic;
 }
 
+/* ---------- Neighbors note (Zusatzhinweis direkt in der Nachbarländer-Kachel) ---------- */
+
+/* Nachbarländer + Timeline sollen dieselbe Höhe wie eine normale Fakten-Kachel haben (z.B.
+   Bevölkerung, ~163px) statt mit ihrem Inhalt zu wachsen — Timeline scrollt intern, falls
+   mehr Einträge da sind, als reinpassen. */
+.fact-tile-neighbors {
+  height: 163px;
+  overflow-y: auto;
+}
+
+.neighbors-note {
+  margin-top: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--color-border);
+}
+
+.neighbors-note-label {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--color-text-muted);
+  margin-bottom: 2px;
+}
+
+.neighbors-note-text {
+  margin: 0;
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
 /* ---------- History tile ---------- */
 
 .fact-tile-history {
   text-align: left;
   grid-column: span 3;
+  height: 163px;
 }
 
 .history-scroll {
-  max-height: 93px;
+  height: 100%;
   overflow-y: auto;
   padding-right: var(--space-1);
 }
@@ -1172,6 +1204,31 @@ img {
 .history-event {
   color: var(--color-text-muted);
   font-size: 0.82rem;
+}
+
+/* ---------- Note tile (generische, optionale Zusatzinfo-Kachel) ---------- */
+
+.fact-tile-note-wide {
+  text-align: left;
+}
+
+/* "large": macht die Kachel bewusst prominenter/höher als eine normale Note-Kachel (visuell
+   "2x2" statt "2x1") — bewusst über min-height statt grid-row: span, damit im kleinen
+   NeighborsHistoryGrid (nur wenige Geschwister-Kacheln) keine leere Grid-Lücke entsteht;
+   Geschwister-Kacheln in derselben Zeile wachsen per align-items: stretch automatisch mit. */
+.fact-tile-note-wide--large {
+  min-height: 220px;
+}
+
+.fact-tile-note-wide--large .fact-tile-note-text {
+  font-size: 0.88rem;
+}
+
+.fact-tile-note-text {
+  margin: var(--space-1) 0 0;
+  color: var(--color-text);
+  font-size: 0.8rem;
+  line-height: 1.45;
 }
 
 /* ---------- Sections ---------- */

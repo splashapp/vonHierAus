@@ -93,6 +93,23 @@ const template = {
     // { year: '', event: '' },
   ],
 
+  // Optional: kleiner Zusatzhinweis DIREKT IN der Nachbarländer-Kachel selbst (unter der
+  // Länderliste, kleinere Schrift) — für einen kurzen praktischen Hinweis zu den
+  // Nachbarländern selbst (Beispiel: Äthiopien nutzt das für einen Reisekombinations-Hinweis:
+  // welche Nachbarländer aktuell unkompliziert bereisbar sind).
+  // neighborsNote: { label: '', text: '' },
+
+  // Optional: ein Array generischer 2-Spalten-Zusatzinfo-Kacheln, die als EIGENE Kacheln direkt
+  // neben Nachbarländer + Timeline erscheinen (NeighborsHistoryGrid), in der angegebenen
+  // Reihenfolge — für Kontext, der zu umfangreich für neighborsNote ist. Nur befüllen, wenn es
+  // wichtigen kulturellen/historischen Kontext gibt, der sonst in keinem Fakten-Feld unterkäme
+  // (Beispiel: Äthiopien nutzt das für die stabile Koexistenz von orthodoxem Christentum und
+  // Islam seit der "ersten Hijra"). `large: true` macht eine einzelne Kachel bewusst höher/
+  // prominenter (visuell "2x2" statt "2x1") — sparsam einsetzen.
+  // neighborsHistoryNotes: [
+  //   { label: '', text: '', large: false },
+  // ],
+
   // Echte interaktive OpenStreetMap-Karte (Leaflet). center/zoom so wählen, dass das Land
   // vollständig zu sehen ist und Nachbarländer nur als Randstreifen hereinragen (niedriger
   // Zoom, z.B. 5). cities: echte, recherchierte lat/lon-Koordinaten (keine Näherung "über den
@@ -116,8 +133,8 @@ const template = {
   // Optional: überschreibt den generischen Gerichte-Teaser in CountryPage.jsx
   // ("Die kulinarischen Highlights des Landes – zum Nachkochen."). Meist nicht nötig — nur
   // sinnvoll, wenn es einen landestypischen, ehrlichen Hinweis zur Küche gibt, der sonst
-  // fehlen würde (Beispiel: Äthiopien weist hier auf die Überschneidung mit der eritreischen
-  // Küche hin, weil Eritrea bis 1993 Teil Äthiopiens war).
+  // fehlen würde (Beispiel: Äthiopien weist hier auf die vegane Fastentradition der
+  // äthiopisch-orthodoxen Kirche hin).
   // dishesTeaser: '',
 
   dishes: [
@@ -133,6 +150,13 @@ const template = {
     //   },
     // },
   ],
+
+  // Optional: überschreibt den generischen Restaurant-Teaser in CountryPage.jsx
+  // ("So schmeckt das Land, auch ohne Flugticket."). Meist nicht nötig — nur sinnvoll bei
+  // einem landestypischen, ehrlichen Hinweis (Beispiel: Äthiopien weist hier auf die
+  // Überschneidung mit der eritreischen Küche/Gastronomie hin, weil Eritrea bis 1993 Teil
+  // Äthiopiens war).
+  // restaurantsTeaser: '',
 
   // Findet sich bei der Recherche KEIN echtes, aktuell bestehendes landestypisches Restaurant
   // in Hamburg, das Array leer lassen (nicht erfinden!) — RestaurantList zeigt dann automatisch
