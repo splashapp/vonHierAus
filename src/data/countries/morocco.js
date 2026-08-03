@@ -71,11 +71,7 @@ const morocco = {
     areaComparison: 'etwa so groß wie Schweden',
     timezone: 'Africa/Casablanca',
     capitalCoords: { lat: 34.0209, lon: -6.8416 },
-    neighbors: [
-      'Algerien (Osten, Landgrenze seit 1994 geschlossen)',
-      'Westsahara (Süden, von Marokko verwaltet, Status völkerrechtlich umstritten)',
-      'Spanien (Norden, über die Exklaven Ceuta/Melilla sowie die Straße von Gibraltar)',
-    ],
+    neighbors: ['Algerien', 'Westsahara', 'Spanien'],
   },
 
   // Marokkanisches Arabisch (Darija) — die im Alltag gesprochene Umgangssprache, nicht
@@ -124,6 +120,12 @@ const morocco = {
     { year: '1062', event: 'Gründung von Marrakesch durch die Almoraviden' },
     { year: '789', event: 'Gründung von Fès durch Idris I. — erste islamische Dynastie Marokkos' },
   ],
+
+  // Kurzer Zusatzhinweis direkt in der Nachbarländer-Kachel selbst (siehe NeighborsHistoryGrid).
+  neighborsNote: {
+    label: 'Reisekombination',
+    text: 'Kombinierbar mit Spanien – Fähre ab Tanger nach Tarifa oder Algeciras (ca. 35 Minuten), eine der meistgenutzten Routen zwischen Afrika und Europa. Über die spanischen Exklaven Ceuta und Melilla ist ebenfalls ein Grenzübertritt möglich. Richtung Süden ist Mauretanien über den Grenzübergang Guerguerat erreichbar – abgelegen, aber machbar für Abenteuerreisende. Algerien ist nicht zugänglich: Die Grenze ist seit 1994 geschlossen, die diplomatischen Beziehungen seit 2021 abgebrochen.',
+  },
 
   map: {
     center: { lat: 31.5, lon: -7.2 },
