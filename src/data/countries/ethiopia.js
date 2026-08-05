@@ -385,6 +385,30 @@ const ethiopia = {
       image: { src: `${WM}/Ethiopian_Coffee_Ceremony_(1).jpg`, alt: 'Äthiopische Kaffeezeremonie', credit: 'Wikimedia Commons' },
       visitNote: 'Bietet u. a. äthiopische Kaffeezeremonie.',
     },
+    {
+      name: 'Injera',
+      address: 'Brennerstraße 35, 20099 Hamburg',
+      url: 'https://www.injeraeritreanundethiopianrestaurant.de/',
+      image: { src: `${WM}/Misir_Wat_in_Pot.jpg`, alt: 'Äthiopisch-eritreische Küche', credit: 'Wikimedia Commons' },
+      visitNote: 'Delivery Service am 5. August 2026',
+      menuHighlights: [
+        {
+          name: 'Bebiaynetu mit Zigni',
+          price: '23,00 €',
+          desc: 'Variation des Bebiaynetu mit Zigni und bunter Auswahl veganer Spezialitäten: Grünkohl, geröstete Kichererbsen, rote Linsen, gelbe Linsen, Weißkohl und Brechbohnen.',
+        },
+        {
+          name: 'Shekla',
+          price: '24,50 €',
+          desc: 'Mariniertes, gegrilltes oder geschmortes Fleisch. Alle Fleischgerichte werden mit Injera serviert und bieten eine Auswahl an herzhaften, proteinreichen Speisen, die typisch für die eritreische Küche sind.',
+        },
+        {
+          name: 'Firfir',
+          price: '19,00 €',
+          desc: 'Zerteilte Injera-Fladenbrotstückchen in geklärter Butter und scharfer Tomatensauce mit Kalbfleisch.',
+        },
+      ],
+    },
   ],
 
   destinations: [
@@ -681,6 +705,59 @@ const ethiopia = {
       ],
       correctIndex: 0,
       explanation: 'Jeden Mittwoch, jeden Freitag und in der langen Fastenzeit vor Ostern gilt veganes Essen als Vorschrift – das prägt die Alltagsküche bis heute.',
+    },
+    {
+      question: 'Wie viele Menschen leben ungefähr in Äthiopien?',
+      options: ['≈24 Mio.', '≈68 Mio.', '≈135,5 Mio.', '≈210 Mio.'],
+      correctIndex: 2,
+      explanation: 'Mit rund 135,5 Millionen Einwohner:innen ist Äthiopien nach Nigeria das bevölkerungsreichste Land Afrikas.',
+    },
+    {
+      question: 'Wie heißt die Währung Äthiopiens?',
+      options: ['Äthiopischer Birr', 'Naira', 'Cedi', 'Dinar'],
+      correctIndex: 0,
+      explanation: 'Der Äthiopische Birr (ETB) ist seit 1945 in seiner heutigen Form die offizielle Landeswährung.',
+    },
+    {
+      question: 'Welches weltweit beliebte Getränk hat seinen Ursprung – der Legende nach – in der äthiopischen Region Kaffa?',
+      options: ['Kaffee', 'Tee', 'Kakao', 'Rum'],
+      correctIndex: 0,
+      explanation: 'Der Legende nach entdeckte der Ziegenhirte Kaldi in der Region Kaffa die anregende Wirkung der Kaffeekirschen – bis heute wird Kaffee in Äthiopien traditionell in einer eigenen Zeremonie zubereitet.',
+    },
+    {
+      question: 'Welcher äthiopische Kaiser wird von der jamaikanischen Rastafari-Bewegung als religiöse Symbolfigur verehrt?',
+      options: ['Haile Selassie I.', 'Menelik II.', 'Tewodros II.', 'Yohannes IV.'],
+      correctIndex: 0,
+      explanation: 'Seine Krönung 1930 inspirierte die in Jamaika entstandene Rastafari-Bewegung, die ihn bis heute als religiöse Symbolfigur verehrt.',
+    },
+    {
+      question: 'Aus welchem See entspringt der Blaue Nil, bevor er später in Khartum auf den Weißen Nil trifft?',
+      options: ['Tanasee', 'Turkanasee', 'Viktoriasee', 'Abaya-See'],
+      correctIndex: 0,
+      explanation: 'Der Tanasee im äthiopischen Hochland ist die Quelle des Blauen Nils, der rund 85 % des Nilwassers beiträgt.',
+    },
+    {
+      question: 'Was ist die "Grand Ethiopian Renaissance Dam" (GERD)?',
+      options: [
+        'Afrikas größtes Wasserkraftwerk am Blauen Nil, diplomatisch umstritten mit Ägypten und Sudan',
+        'Ein antikes Bewässerungssystem aus dem Königreich Aksum',
+        'Der höchste Wolkenkratzer Addis Abebas',
+        'Ein Nationalpark im Hochland',
+      ],
+      correctIndex: 0,
+      explanation: 'Die GERD ist Afrikas größtes Wasserkraftwerk – ihre Nilwasser-Nutzung sorgt seit Jahren für Spannungen mit den Nil-Anrainern Ägypten und Sudan.',
+    },
+    {
+      question: 'Welche Farben zeigt die äthiopische Flagge – Vorbild für die panafrikanischen Farben vieler anderer Staatsflaggen?',
+      options: ['Grün, Gelb, Rot', 'Rot, Weiß, Blau', 'Schwarz, Grün, Gelb', 'Blau, Gelb, Grün'],
+      correctIndex: 0,
+      explanation: 'Äthiopien war nie kolonisiert – seine Flaggenfarben Grün-Gelb-Rot wurden deshalb zum Vorbild der panafrikanischen Farben in vielen anderen afrikanischen Staatsflaggen.',
+    },
+    {
+      question: 'Welcher äthiopische Langstreckenläufer gewann 2004 und 2008 zweimal in Folge Olympiagold über 10.000 Meter?',
+      options: ['Kenenisa Bekele', 'Abebe Bikila', 'Haile Gebrselassie', 'Mo Farah'],
+      correctIndex: 0,
+      explanation: 'Kenenisa Bekele gilt als einer der größten Langstreckenläufer der Geschichte und hält bis heute mehrere Weltrekorde.',
     },
   ],
 
