@@ -5,6 +5,11 @@ const senegal = {
   name: 'Senegal',
   nameEn: 'Senegal',
   tagline: 'Teranga – die Kunst der Gastfreundschaft am Atlantik',
+  // Optionaler, längerer Stimmungs-Absatz direkt unter der Tagline im Hero — hier bewusst
+  // genutzt, um Teranga nicht nur als Wort, sondern als gelebtes gesellschaftliches Prinzip
+  // einzufangen.
+  heroLede:
+    'Teranga ist mehr als ein Wort für Gastfreundschaft – es ist ein gelebtes gesellschaftliches Versprechen: Fremde werden bewirtet, bevor nach ihrem Namen gefragt wird, und das gemeinsame Essen aus einer großen Schüssel gilt als Ausdruck von Gemeinschaft und Vertrauen. Wer Senegal bereist, spürt das oft direkter in Alltagsbegegnungen als in jedem Reiseführer.',
   status: 'active',
 
   flagImage: { src: `${WM}/Flag_of_Senegal.svg`, alt: 'Flagge von Senegal', credit: 'Wikimedia Commons' },
@@ -13,6 +18,30 @@ const senegal = {
     alt: 'Die Île de Gorée vor der Küste Dakars',
     credit: 'Wikimedia Commons',
   },
+  // Rotierende Hero-Diashow (löst heroImage ab) — nutzt bereits verifizierte Fotos, die auch
+  // unten bei den Reisezielen vorkommen, damit kein zusätzlicher Bild-Research nötig war.
+  heroSlides: [
+    {
+      src: `${WM}/Ile-de-goree.jpg`,
+      alt: 'Die Île de Gorée vor der Küste Dakars',
+      credit: 'Wikimedia Commons',
+    },
+    {
+      src: `${WM}/RetbaLakeShore.jpg`,
+      alt: 'Der pinke Lac Rose (Lac Retba) nordöstlich von Dakar',
+      credit: 'Wikimedia Commons',
+    },
+    {
+      src: `${WM}/Pont_Faidherbe_Saint-Louis.jpg`,
+      alt: 'Die Faidherbe-Brücke in Saint-Louis',
+      credit: 'Wikimedia Commons',
+    },
+    {
+      src: `${WM}/Monument_renaissance.jpg`,
+      alt: 'Das African Renaissance Monument bei Dakar',
+      credit: 'Wikimedia Commons',
+    },
+  ],
 
   // Bewusst andere Farbwelt, Hintergrundton und Schriftpaarung als Marokko, damit sich das
   // Land beim Durchklicken spürbar anders anfühlt (siehe CLAUDE.md, "Farb-, Hintergrund- und
@@ -46,12 +75,28 @@ const senegal = {
     areaComparison: 'nur wenig kleiner als Belarus',
     timezone: 'Africa/Dakar',
     capitalCoords: { lat: 14.6937, lon: -17.4441 },
-    neighbors: [
-      'Mauretanien (Norden, Grenzfluss Senegal)',
-      'Mali (Osten)',
-      'Guinea (Süden)',
-      'Guinea-Bissau (Südwesten)',
-      'Gambia (fast vollständig von Senegal umschlossen, eigener Staat entlang des Gambia-Flusses)',
+    neighbors: ['Mauretanien', 'Mali', 'Guinea', 'Guinea-Bissau', 'Gambia'],
+    // Erscheint als eigene 2-Spalten-Kachel am Ende von FactGrid — landet dadurch automatisch
+    // in der Zeile direkt unter Bevölkerung/Staatsform (siehe FactGrid.jsx).
+    factsNotes: [
+      {
+        label: 'Religion',
+        text: 'Rund 95 % der Bevölkerung sind Muslime, überwiegend Anhänger sufischer Bruderschaften wie der Mouridiyya und Tijaniyya. Die heilige Stadt Touba, Zentrum der 1887 von Cheikh Amadou Bamba gegründeten Mouriden-Bruderschaft, zieht beim jährlichen „Grand Magal" Millionen Pilger an – eine der größten religiösen Versammlungen Afrikas. Die kleine christliche Minderheit (≈4 %) lebt traditionell in enger, oft familiärer Nähe zur muslimischen Mehrheit; Senegals erster Präsident Léopold Sédar Senghor war Katholik.',
+      },
+      {
+        label: 'Ein Name, der geblieben ist',
+        text: [
+          'Jeden Januar spricht die Welt von der Dakar – von Dünen, Rennwagen, Staub. Kaum jemand denkt dabei noch an eine Stadt am Atlantik. Dabei ist genau das der Ursprung: Dakar ist die Hauptstadt des Senegal, und einmal war sie das Ziel.',
+          'Von 1979 an fuhr die Rallye von Paris quer durch die Sahara bis hierher. Das klassische Ankunftsbild war der Lac Rose, ein rosafarben schimmernder Salzsee, in dem Menschen bis heute mit bloßen Händen Salz vom Grund brechen. Fast dreißig Jahre lang stand dieses Bild für das Ende der härtesten Rallye der Welt. 2008 wurde die Ausgabe wegen Terrordrohungen abgesagt, danach zog die Veranstaltung nach Südamerika, seit 2020 nach Saudi-Arabien. Der Name blieb – während die Stadt, die ihn gab, aus dem Blick geriet.',
+        ],
+      },
+      {
+        label: 'Mehr als eine Ziellinie',
+        text: [
+          'Man kann das romantisch erzählen: Weite, Freiheit, Ankunft am Meer. Ehrlicher ist die zweite Seite. Die Rallye trug ein sehr europäisches Bild von Westafrika in die Welt – die Wüste als Bühne, die Menschen am Straßenrand als Statisten. Und die Kosten trugen nicht nur die Fahrer: Über die Jahrzehnte starben auch Anwohner, kritisiert wurden die Umweltspuren Hunderter Fahrzeuge. Der Glanz des Zielbildes und diese Bilanz gehören zusammen.',
+          'Dakar war nie nur eine Ziellinie. Der Lac Rose ist keine Rennkulisse, sondern ein Ort, an dem seit Generationen Salz gewonnen wird – lange bevor der erste Motor durch die Sahara heulte, und lange nachdem der letzte fort war. Diese Reise fährt nicht hindurch. Sie kommt an und schaut sich an, was das Ziel eigentlich war.',
+        ],
+      },
     ],
   },
 
@@ -100,6 +145,26 @@ const senegal = {
     { year: '1978', event: 'Île de Gorée wird erste afrikanische UNESCO-Welterbestätte' },
     { year: '1960', event: 'Unabhängigkeit von Frankreich (4. April), Senghor wird erster Präsident' },
     { year: '1659', event: 'Gründung von Saint-Louis als französischer Handelsposten' },
+  ],
+
+  neighborsNotes: [
+    {
+      label: 'Reisekombination',
+      text: 'Gambia lässt sich unkompliziert mit Senegal kombinieren. Für Mali, Guinea und Guinea-Bissau lohnt sich vor der Planung ein Blick auf die aktuellen Reise- und Sicherheitshinweise des Auswärtigen Amts.',
+    },
+    {
+      label: 'Gambia-Enklave',
+      text: 'Gambia erstreckt sich als schmaler Streifen entlang des Gambia-Flusses und ist auf drei Seiten fast vollständig von Senegal umschlossen – ein Erbe der britisch-französischen Kolonialaufteilung des 19. Jahrhunderts. Die Trans-Gambia-Brücke bei Farafenni verbindet seit 2019 beide Landesteile Senegals, ohne Fährüberfahrt.',
+    },
+  ],
+
+  // Eigene Kachel direkt neben Nachbarländer + Timeline (siehe NeighborsHistoryGrid) —
+  // politisch/historisch sensibler Kontext zur Casamance, sachlich und neutral formuliert.
+  neighborsHistoryNotes: [
+    {
+      label: 'Casamance-Konflikt',
+      text: 'Die südliche Region Casamance ist durch Gambia geografisch vom übrigen Senegal getrennt. Seit 1982 kämpfte hier die Bewegung MFDC (Mouvement des Forces Démocratiques de Casamance) für die Unabhängigkeit der Region – einer der am längsten andauernden bewaffneten Konflikte Afrikas. Nach einem Waffenstillstand 2014 und einer Entwaffnungsaktion 2023 unterzeichnete die Regierung im Februar 2025 ein historisches Friedensabkommen mit einer der MFDC-Fraktionen.',
+    },
   ],
 
   map: {
@@ -259,11 +324,13 @@ const senegal = {
     },
   ],
 
-  // Kein aktuell bestehendes, spezialisiert-senegalesisches Restaurant in Hamburg gefunden
-  // (gründlich recherchiert: Yelp, TripAdvisor, TheFork, hamburg.de-Branchenbuch u.a.) —
-  // bewusst leer gelassen statt eines erfundenen Eintrags. RestaurantList zeigt dafür einen
-  // ehrlichen Hinweistext statt eines leeren Rasters.
-  restaurantsHamburg: [],
+  restaurantsHamburg: [
+    {
+      name: 'DAKAR Afrikanische Küche',
+      address: 'Grindelallee 180, 20144 Hamburg',
+      image: { src: `${WM}/Thieboudienne.JPG`, alt: 'Thiéboudienne, senegalesisches Fisch-Reis-Gericht', credit: 'Wikimedia Commons' },
+    },
+  ],
 
   destinations: [
     {
@@ -384,10 +451,10 @@ const senegal = {
   eventsHamburg: [
     {
       name: 'Afrikanischer Frühling',
-      when: 'jährlich im Mai (2025: 17.–18. Mai)',
+      when: 'jährlich im Mai',
       location: 'Zinnschmelze, Hamburg-Barmbek',
       desc: 'Open-Air-Festival mit afrikanischem Markt, Musik und Tanz-Workshops, mitorganisiert vom Senegalesen Aliou Badji (Diamoral).',
-      url: 'https://zinnschmelze.de/event/diamoral/',
+      url: 'https://zinnschmelze.de/events/',
     },
   ],
 
