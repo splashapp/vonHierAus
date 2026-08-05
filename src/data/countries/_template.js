@@ -73,6 +73,16 @@ const template = {
     //   label: '', offsetHours: 0, note: '', travelTip: '',
     //   calendar: { label: '', headline: '', description: '' },
     // },
+
+    // Optional: ein Array generischer NoteTile-Kacheln (Default 2 Spalten breit), die am Ende
+    // von FactGrid erscheinen — landen dadurch automatisch in der Zeile direkt unter
+    // Bevölkerung/Staatsform. Nur befüllen, wenn es einen wichtigen Fakt gibt, der sonst in
+    // keinem anderen Feld unterkäme (Beispiel: Marokko erklärt hier die Rolle des Islam als
+    // Staatsstruktur und den Alltagsrhythmus durch Gebetszeiten/Ramadan). `text` als String
+    // oder String-Array (mehrere Absätze) möglich, siehe NoteTile.
+    // factsNotes: [
+    //   { label: '', text: '' },
+    // ],
   },
 
   // Die im Alltag gesprochene Landessprache (nicht zwingend die Amtssprache/Hochsprache) —

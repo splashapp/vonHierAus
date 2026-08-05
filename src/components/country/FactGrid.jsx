@@ -5,6 +5,7 @@ import LocalTimeTile from './LocalTimeTile.jsx';
 import LocalCalendarTile from './LocalCalendarTile.jsx';
 import CurrencyConverter from './CurrencyConverter.jsx';
 import PhrasebookTile from './PhrasebookTile.jsx';
+import NoteTile from './NoteTile.jsx';
 
 export default function FactGrid({ facts, phrasebook }) {
   if (!facts) return null;
@@ -63,6 +64,10 @@ export default function FactGrid({ facts, phrasebook }) {
         </div>
       )}
       <PhrasebookTile phrasebook={phrasebook} />
+
+      {facts.factsNotes?.map((note) => (
+        <NoteTile key={note.label} label={note.label} text={note.text} large={note.large} span={note.span ?? 2} />
+      ))}
     </div>
   );
 }

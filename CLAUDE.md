@@ -156,7 +156,7 @@ Bei einem neuen bewegten Bild-Bereich dieses Muster wiederholen, nicht weglassen
 | `flagImage`, `heroImage` | `{src, alt, credit}` | Immer dieses dreiteilige Bild-Schema |
 | `heroSlides[]` (optional) | `{src, alt, credit, effect?: 'clouds' \| 'stars'}` | Rotierende Hero-Diashow statt `heroImage`; `effect` nur bei Himmel-Motiven sinnvoll |
 | `theme` | `{primary, secondary, accent, surface, fontHeading?, fontBody?, googleFontUrl?}` | Landestypische Optik — siehe eigener Abschnitt unten |
-| `facts` | `{capital, capitalImage, capitalPopulation, population, government, officialLanguages[], currencyCode, currencyName, eurExchangeRate, area, areaComparison, timezone, capitalCoords, neighbors[], localTimeSystem?}` | Kernfakten, siehe Hinweise unten |
+| `facts` | `{capital, capitalImage, capitalPopulation, population, government, officialLanguages[], currencyCode, currencyName, eurExchangeRate, area, areaComparison, timezone, capitalCoords, neighbors[], localTimeSystem?, factsNotes?}` | Kernfakten, siehe Hinweise unten |
 | `phrasebook` | `{languageName, sourceNote, categories: [{title, phrases: [{de, local, phonetic, note?}]}]}` | Mini-Sprachführer, siehe Hinweise unten |
 | `history[]` | `{year, event}` — 5-8 Einträge, umgekehrt chronologisch (neuestes zuerst) | Historische Eckdaten, steht neben `facts.neighbors` (beide span 3) |
 | `neighborsNotes[]` (optional) | `{label, text}` | Kurze Zusatzhinweise DIREKT IN der Nachbarländer-Kachel selbst, kleinere Schrift unter der Länderliste, in Array-Reihenfolge gestapelt (Beispiel: Marokko nutzt zwei Einträge — Reisekombination und ein historischer Hinweis zur Algerien-Grenze) |
@@ -214,6 +214,11 @@ Hinweise zu den besonderen `facts`-Feldern:
   vom gregorianischen Kalender abweichenden Kalender verwendet (Beispiel: der äthiopische
   Kalender mit 13 Monaten). Für die meisten
   Länder bleibt `localTimeSystem` einfach weg, kein Pflichtfeld.
+- `factsNotes` (optional, Array von `{label, text, large?, span?}`) — generische `NoteTile`-
+  Kacheln (Default 2 Spalten), die am Ende von `FactGrid` erscheinen und dadurch automatisch in
+  der Zeile direkt unter Bevölkerung/Staatsform landen. Nur befüllen, wenn ein wichtiger Fakt in
+  keinem anderen Feld unterkäme (Beispiel: Marokko erklärt hier die Rolle des Islam als
+  Staatsstruktur und den Alltagsrhythmus durch Gebetszeiten/Ramadan).
 
 `WeatherTile` ist die einzige Komponente mit einer echten externen Netzwerkabhängigkeit: sie holt
 Temperatur/Niederschlag/Luftfeuchtigkeit/Wetterlage für Hamburg und die Hauptstadt live von der
@@ -313,7 +318,7 @@ Fakten, kein optionales Polishing.
 | `SiteHeader` (`layout/`) | Sticky Kopfzeile. Auf der Länderseite zeigt sie Flagge + Landesname (`FlagBadge`) statt des generischen "🌍 Virtuelle Afrikareise"-Titels, plus "← Übersicht"-Link zurück zur Landing Page |
 | `MosaicHero` (`landing/`) | Vollflächiger Startseiten-Header: 500 prozedural generierte Farb-/Muster-Kacheln (kein Foto, keine Recherche nötig) hinter Eyebrow/H1/Lede/CTA-Link zu `/morocco`; eigenes Fraunces/Inter-Fontpaar per `GoogleFontLoader`, respektiert `prefers-reduced-motion` (Kachel-Einblendung entfällt dann) |
 | `CountryGrid` / `CountryCard` (`landing/`) | Kachel-Raster der Startseite, aktive Karten mit bewegtem Foto + eigenem Theme |
-| `CountryHero` / `FactGrid` | Immer sichtbarer "Broschüren-Umschlag", NICHT in `Section` gewrappt. `CountryHero` rotiert `heroSlides` mit Punkt-Navigation, Ken-Burns-Bewegung je Foto, optionalen Wolken-/Sternen-Overlays und einem "Quiz starten"-Link; zeigt optional `heroLede` als längeren Absatz unter der Tagline |
+| `CountryHero` / `FactGrid` | Immer sichtbarer "Broschüren-Umschlag", NICHT in `Section` gewrappt. `CountryHero` rotiert `heroSlides` mit Punkt-Navigation, Ken-Burns-Bewegung je Foto, optionalen Wolken-/Sternen-Overlays und einem "Quiz starten"-Link; zeigt optional `heroLede` als längeren Absatz unter der Tagline. `FactGrid` hängt optional `facts.factsNotes[]` als `NoteTile`(s) ans Ende an — landen dadurch in der Zeile unter Bevölkerung/Staatsform |
 | `CapitalTile` (`country/`) | Hauptstadt-Kachel mit bewegtem Foto-Hintergrund (Ken Burns), zeigt optional `facts.capitalPopulation` als kleine Einwohner:innen-Angabe unter dem Stadtnamen. Wächst automatisch über zwei Grid-Zeilen (`grid-row: span 2`), sobald `facts.localTimeSystem` gesetzt ist — kein eigenes Datenfeld nötig, das ist an dieselbe Bedingung wie `LocalTimeTile`/`LocalCalendarTile` gekoppelt |
 | `ClockTile` (`country/`) | Live-Uhr Hamburg + Hauptstadt, sekündlich aktualisiert, inkl. Sonnenauf-/-untergang — bewusst immer nur diese zwei Blöcke, für jedes Land identisch |
 | `LocalTimeTile` (`country/`) | Eigene, optionale 2-Spalten-Kachel für `facts.localTimeSystem` (traditionelle, vom internationalen 24h-Format abweichende Tageszählung, z. B. Äthiopien): Lokalzeit + Label + Hinweis; `travelTip` sitzt hinter einem `InfoPopover`-Button neben der Uhrzeit statt als Dauertext. Rendert `null`, wenn `facts.localTimeSystem` fehlt |

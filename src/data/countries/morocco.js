@@ -76,6 +76,14 @@ const morocco = {
     timezone: 'Africa/Casablanca',
     capitalCoords: { lat: 34.0209, lon: -6.8416 },
     neighbors: ['Algerien', 'Westsahara', 'Spanien'],
+    // Erscheint als eigene 2-Spalten-Kachel am Ende von FactGrid — landet dadurch automatisch
+    // in der Zeile direkt unter Bevölkerung/Staatsform (siehe FactGrid.jsx).
+    factsNotes: [
+      {
+        label: 'Religion',
+        text: 'Der Islam ist in Marokko nicht nur Religion, sondern Staatsstruktur: Der König trägt den Titel „Amir al-Mu\'minin" – Anführer der Gläubigen. Im Alltag prägt das den Rhythmus des Landes: fünf Gebetszeiten, der Freitag als heiliger Tag, Ramadan als öffentlich sichtbare Unterbrechung des Alltags – Restaurants bleiben tagsüber geschlossen, das öffentliche Leben verlangsamt sich. Rund 99 % der Bevölkerung sind sunnitische Muslime.',
+      },
+    ],
   },
 
   // Marokkanisches Arabisch (Darija) — die im Alltag gesprochene Umgangssprache, nicht
